@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.ManageDao">
+
+
+    <select id="login" resultType="Manage" parameterType="Manage">
+        select * from  manage where account=#{account} and password=#{password}
+    </select>
+
+    <select id="menuList" resultType="Menu" parameterType="Manage">
+        <choose>
+            <when test="type==0">
+                SELECT NAME,url FROM menu WHERE TYPE=0
+            </when>
+            <otherwise>
+                SELECT
+                DISTINCT m.name,m.url
+                FROM menu m
+                LEFT JOIN role_menu rm ON rm.menu_id=m.id
+                LEFT JOIN manage_role mr ON mr.role_id=rm.role_id
+                WHERE mr.manage_id=#{id}
+            </otherwise>
+        </choose>
+    </select>
+    <resultMap id="ManageMap" type="Manage">
+        <id column="id" property="id"></id>
+        <id column="account" property="account"></id>
+        <id column="type_string" property="typeString"></id>
+        <id column="phone" property="phone"></id>
+        <id column="sex" property="sex"></id>
+        <id column="address" property="address"></id>
+        <id column="operate_time" property="operateTime"></id>
+
+        <collection property="roleList" ofType="Role" javaType="list" select="ManageRoleRelation" column="id">
+            <id column="name" property="name"></id>
+        </collection>
+    </resultMap>
+    <select id="ManageRoleRelation" resultType="Role">
+        SELECT r.name FROM role r
+             LEFT JOIN manage_role mr ON mr.role_id=r.id
+            WHERE mr.manage_id=#{id}
+    </select>
+
+    <resultMap id="ManageUpdateMap" type="Manage">
+        <id column="id" property="id"></id>
+        <id column="account" property="account"></id>
+        <id column="type_string" property="typeString"></id>
+        <id column="phone" property="phone"></id>
+        <id column="sex" property="sex"></id>
+        <id column="address" property="address"></id>
+        <id column="address" property="address"></id>
+        <collection property="roleList" ofType="Role" javaType="list">
+            <id column="roleid" property="id"></id>
+        </collection>
+    </resultMap>
+
+    <insert id="save" parameterType="Manage" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO manage(account,PASSWORD,phone,sex,address)VALUES(#{account},#{password},#{phone},#{sex},#{address})
+    </insert>
+    <insert id="saveManageRole">
+        INSERT INTO manage_role VALUES(#{manageid},#{roleid})
+    </insert>
+    <insert id="addRelation">
+        INSERT INTO manage_role VALUES(#{manageid},#{roleid})
+    </insert>
+    <update id="updateManageSave" parameterType="Manage">
+        update manage set account=#{account},phone=#{phone},sex=#{sex},address=#{address} where id=#{id}
+    </update>
+    <update id="changeCode">
+        update manage set password=#{mm} where id=#{id}
+    </update>
+    <delete id="deleteRelation">
+         DELETE FROM manage_role WHERE manage_id=#{id}
+    </delete>
+    <delete id="deleteManage">
+        update manage set state=0 where id=#{id1}
+    </delete>
+    <select id="updateManage" resultMap="ManageUpdateMap">
+           SELECT
+            manage.id,
+            account,
+            (CASE WHEN TYPE=0 THEN '超级管理员' ELSE '普通管理员' END)type_string,
+            phone,
+            sex,
+            address,
+            role.id roleid
+            FROM manage
+            LEFT JOIN manage_role ON manage.id=manage_role.manage_id
+            LEFT JOIN role ON manage_role.role_id=role.id
+            WHERE manage.id=#{id}
+    </select>
+
+    <select id="manageList" resultMap="ManageMap" parameterType="Manage">
+            SELECT
+              id,
+              account,
+              new_file_name,
+               operate_time,
+              (
+                CASE
+                  WHEN TYPE = 0
+                  THEN '超级管理员'
+                  ELSE '普通管理员'
+                END
+              ) type_string,
+              phone,
+              sex,
+              address
+            FROM
+              manage
+            WHERE manage.state = 1 AND manage.type = 1
+           <if test="account!=''">
+               and manage.account like  concat('%',#{account},'%')
+           </if>
+           <if test="sex!=''">
+                and manage.sex=#{sex}
+           </if>
+    </select>
+    <select id="roleList" resultType="Role">
+        SELECT id,NAME FROM role
+    </select>
+    <select id="searchCode" resultType="String">
+        select password from manage where id=#{id}
+    </select>
+</mapper>
