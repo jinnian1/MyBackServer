@@ -10,7 +10,7 @@
     <select id="menuList" resultType="Menu" parameterType="Manage">
         <choose>
             <when test="type==0">
-                SELECT NAME,url FROM menu WHERE TYPE=0
+                SELECT NAME,url FROM menu WHERE TYPE=1
             </when>
             <otherwise>
                 SELECT

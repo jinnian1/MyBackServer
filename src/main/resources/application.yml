@@ -10,18 +10,17 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/team?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/campus?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password:
+    password: '0521'
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 5
     minIdle: 1
     maxActive: 20
     filters: stat
   main:
-    allow-circular-references: true
+      allow-circular-references: true
   redis:
-    host: 123.56.46.186
     port: 6379
     password: 100
     database: 0
@@ -39,11 +38,7 @@ mybatis:
    cache-enabled: true
 
 
-logging:
-  level:
-    com.ffyc.myfirstboot.dao: trace
-  file:
-    name: /usr/log/log.log
-
-
-
+#logging:
+  #com.ffyc.myfirstboot.dao: trace
+ # file:
+    #name: /usr/log/log.log
