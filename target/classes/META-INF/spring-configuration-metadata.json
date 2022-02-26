@@ -1,0 +1,12 @@
+{
+  "groups": [
+    {
+      "name": "spring.datasource",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.ffyc.myfirstboot.config.DruidDataSourceConfig",
+      "sourceMethod": "druid()"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

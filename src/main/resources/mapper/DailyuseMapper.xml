@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.Dailyusedao">
+    <insert id="dailyusesave">
+     INSERT INTO dailyuse(studentID,name,time,remark,state)VALUES(#{id},#{dname},,now(),#{remark},0)
+    </insert>
+    <update id="updatedailyuse">
+        UPDATE dailyuse SET NAME=#{dname},remark=#{remark},state=#{state} where id=#{id}
+    </update>
+    <delete id="deletedailyuse">
+        delete from dailyuse where id=#{id}
+    </delete>
+    <select id="updatedailyuseid" resultType="com.ffyc.myfirstboot.model.Dailyuse">
+    SELECT id,NAME As dname,remark,state FROM dailyuse where id=#{id}
+    </select>
+
+    <select id="SelectDaily" resultType="com.ffyc.myfirstboot.model.Dailyuse">
+    SELECT
+      d.id,
+      d.time,
+      d.state,
+      d.remark,
+      s.name sname,
+      s.phone,
+      b.name buildingName,
+      r.number,
+      d.name dname
+    FROM
+      dailyuse d
+      LEFT JOIN student s ON d.studentID = s.id
+        LEFT JOIN building b ON b.id=s.buildingID
+      LEFT JOIN room r ON s.roomID=r.id
+    </select>
+    <select id="Selectdailyid" resultType="com.ffyc.myfirstboot.model.Dailyuseadv">
+              SELECT
+        da.name,
+        da.picture,
+        da.type,
+        d.state
+        FROM
+         dailyuse d
+         LEFT JOIN student s ON d.studentID=s.id
+         LEFT JOIN dailyuseadv da ON d.dailyuseID=da.id WHERE d.studentID=#{id}
+    </select>
+</mapper>

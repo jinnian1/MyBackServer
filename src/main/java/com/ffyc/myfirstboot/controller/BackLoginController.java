@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/login")
-public class TestController {
+public class BackLoginController {
     @Autowired
     HelloService helloService;
     @Autowired
@@ -54,7 +54,7 @@ public class TestController {
         try {
             DecodedJWT decodedJWT= TokenUtil.getTokenInfo(token);
             Integer type=decodedJWT.getClaim("type").asInt();
-            Integer id=decodedJWT.getClaim("type").asInt();
+            Integer id=decodedJWT.getClaim("id").asInt();
             List<Menu> menuList = adminService.menuList(type,id);
             if (menuList != null) {
                 return new CommonResult<>(200, "查询成功", menuList);

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.AcidTestDao">
+
+    <insert id="addAcidTest" parameterType="acidTest">
+        insert into acidtest(starttime, endtime, college, address, operator, operate_time)
+        values (#{starttime}, #{endtime}, #{college}, #{address}, #{operator}, now())
+    </insert>
+    <update id="updateAcidTest" parameterType="acidTest">
+        update acidTest
+        set starttime=#{starttime},
+            endtime=#{endtime},
+            college=#{college},
+            address=#{address},
+            operator=#{operator},
+            operate_time=now()
+        where id = #{id}
+    </update>
+    <delete id="deleteAcidTest">
+        delete
+        from acidtest
+        where id = #{acidTestId}
+    </delete>
+    <select id="getAcidTestById" resultType="AcidTest">
+        select *
+        from acidtest
+        where id = #{acidTestId}
+    </select>
+    <select id="getAcidTestList" parameterType="acidTest" resultType="AcidTest">
+        select id,starttime,endtime,college,address,find_manage_account(operator)operatorAccount,operate_time
+        from acidtest
+        <where>
+            <if test="starttime!='' &amp; starttime!=null">
+                starttime &gt;= #{starttime}
+            </if>
+            <if test="endtime!='' &amp; endtime!=null">
+                and endtime &lt;= #{endtime}
+            </if>
+            <if test="college!=''">
+                and college = #{college}
+            </if>
+        </where>
+    </select>
+</mapper>

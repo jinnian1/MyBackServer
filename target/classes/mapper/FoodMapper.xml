@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.Fooddao">
+    <insert id="savefood">
+    INSERT INTO food(restaurant,studentID,foodname,remark,time,state,repper)VALUES(#{restaurant},#{id},#{foodname},#{remark},now(),0,#{repper})
+    </insert>
+
+    <update id="updatefood">
+UPDATE food SET foodname=#{foodname},remark=#{remark},state=#{state},repper=#{repper} where id=#{id}
+    </update>
+    <delete id="delectfood">
+       DELETE FROM foodadv WHERE id=#{id}
+    </delete>
+
+    <select id="Selectfood" resultType="com.ffyc.myfirstboot.model.Food">
+      SELECT
+      f.id,
+      f.restaurant,
+      f.foodname,
+      f.remark,
+      f.time,
+      f.repper,
+      f.state,
+      s.name,
+      b.name buildingName,
+      r.number
+      FROM
+      food f
+      LEFT JOIN student s ON f.studentID = s.id
+      LEFT JOIN building b ON b.id=s.buildingID
+      LEFT JOIN room r ON s.roomID=r.id
+    </select>
+
+    <select id="Selectfoodid" resultType="com.ffyc.myfirstboot.model.Food">
+                 SELECT
+         *
+         FROM food WHERE id=#{id}
+    </select>
+</mapper>

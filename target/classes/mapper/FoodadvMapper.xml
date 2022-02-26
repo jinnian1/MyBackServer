@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.Foodadvdao">
+    <insert id="addfoodadv">
+INSERT INTO foodadv(FILE,TYPE)VALUES(#{file},#{type})
+    </insert>
+    <update id="updatefoodadv">
+        update foodadv set file=#{file},type=#{type} where id=#{id}
+    </update>
+    <select id="updatefoodadvid"  resultType="com.ffyc.myfirstboot.model.Foodadv">
+        select * from foodadv where id=#{id}
+    </select>
+    <delete id="deletefoodadv">
+        delete from foodadv where id=#{id}
+    </delete>
+
+
+    <select id="Selectfoodadv" resultType="com.ffyc.myfirstboot.model.Foodadv">
+          SELECT * FROM foodadv
+    </select>
+    <select id="foodadv0" resultType="com.ffyc.myfirstboot.model.Foodadv">
+        select * from foodadv where type=0
+    </select>
+    <select id="foodadv1" resultType="com.ffyc.myfirstboot.model.Foodadv">
+        select * from foodadv where type=1
+    </select>
+    <select id="foodadv2" resultType="com.ffyc.myfirstboot.model.Foodadv">
+        select * from foodadv where type=2
+    </select>
+    <select id="findTypeName" resultType="java.lang.String">
+         select type
+        from foodadv
+    </select>
+    <select id="countByTypeList" resultType="java.lang.Integer">
+          SELECT COUNT(TYPE)
+        FROM foodadv
+         GROUP BY TYPE
+    </select>
+</mapper>

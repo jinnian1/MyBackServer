@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.VolunteerDao">
+
+    <insert id="addVolunteer">
+        insert into volunteer (studentID, type, health, state, operator, operate_time)
+        values (#{studentID}, #{type}, #{health}, #{state}, #{operator}, now())
+    </insert>
+    <update id="updateVolunteer" parameterType="volunteer">
+        update volunteer
+        set type=#{type},
+            health=#{health},
+            state=#{state},
+            operator=#{operator},
+            operate_time=now()
+        where id = #{id}
+    </update>
+    <delete id="deleteVolunteer">
+        delete
+        from volunteer
+        where id = #{volunteerId}
+    </delete>
+    <select id="getVolunteerById" resultType="Volunteer">
+        SELECT id,find_student_name(studentID) studentName,type,health,state
+        FROM volunteer
+        where id = #{volunteerId}
+    </select>
+    <select id="getVolunteerList" resultType="Volunteer">
+        select id, studentID ,find_student_name(studentID)studentName, find_volunteer_type(type)typeString, health,
+        find_volunteer_state(state)stateString,find_manage_account(operator)operatorAccount,operate_time
+        FROM volunteer
+        <where>
+            <if test="type!='' &amp; type!=null ">
+                type=#{type}
+            </if>
+            <if test="health!=''&amp; health!=null ">
+                and health=#{health}
+            </if>
+            <if test="state!=''&amp; state!=null ">
+                and state=#{state}
+            </if>
+            <if test="studentName!=''&amp; studentName!=null ">
+                and find_student_id(#{studentName})
+            </if>
+        </where>
+    </select>
+    <select id="isVolunteer" resultType="Integer">
+        CALL isVolunteer(#{studentId},@p_result);
+    </select>
+</mapper>

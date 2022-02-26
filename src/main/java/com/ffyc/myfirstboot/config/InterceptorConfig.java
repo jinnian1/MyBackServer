@@ -9,9 +9,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
-		InterceptorRegistration inter =  registry.addInterceptor(new LoginInterceptor());
-				inter.addPathPatterns("/**");
-				inter.excludePathPatterns("/api/login/login");
+	//	InterceptorRegistration inter =  registry.addInterceptor(new LoginInterceptor());
+			//	inter.addPathPatterns("/**");
+		//		inter.excludePathPatterns("/api/login/login");
 //				inter.excludePathPatterns("/swagger*/**");
 //				inter.excludePathPatterns("/v2/**");
 //				inter.excludePathPatterns("/webjars/**");

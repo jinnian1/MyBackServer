@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.ExpressDao">
+    <insert id="save">
+           INSERT INTO express(studentID,TYPE,CODE,TIME)VALUES(#{id},#{type},#{code},#{outputTime})
+    </insert>
+    <delete id="delete">
+        delete  from express where id=#{id};
+    </delete>
+
+
+    <select id="expressList" resultType="Express" parameterType="Express">
+        SELECT e.id,s.NAME student_name,b.name building_name,r.number,s.sex,phone,expressType(TYPE)type_string,e.time,e.code
+        FROM express e
+        LEFT JOIN student s ON e.studentID=s.id
+        LEFT JOIN building b ON s.buildingID=b.id
+        LEFT JOIN room r ON s.roomID=r.id
+        where e.state=0
+       <if test="phone!=''">
+            and s.phone=#{phone}
+        </if>
+        <if test="outputTime!=null">
+            and Date(e.time)=#{outputTime}
+        </if>
+    </select>
+    <select id="searchID" resultType="java.lang.Integer">
+        select id from student where sno=#{sno}
+    </select>
+</mapper>

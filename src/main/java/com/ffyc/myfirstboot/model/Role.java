@@ -11,6 +11,8 @@ public class Role {
     private Timestamp operateTime;
     private List<Menu>menuList;
     private  String operatePersonString;
+    private  Integer pageNum;
+    private  Integer pageSize;
 
     public String getOperatePersonString() {
         return operatePersonString;
@@ -66,5 +68,21 @@ public class Role {
 
     public void setOperateTime(Timestamp operateTime) {
         this.operateTime = operateTime;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 }

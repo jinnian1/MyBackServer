@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.NewsDao">
+
+    <insert id="addNews" parameterType="news">
+        insert into new (title, summary, info, output_time, picture, operator, operate_time)
+        values (#{title}, #{summary}, #{info}, now(), #{picture}, #{operator}, now());
+    </insert>
+    <update id="updateNews" parameterType="news">
+        update new
+        set title=#{title},
+            summary=#{summary},
+            info=#{info},
+            picture=#{picture},
+            operator=#{operator},
+            operate_time=now()
+        where id = #{id}
+    </update>
+    <delete id="deleteNews">
+        delete
+        from new
+        where id = #{newsId};
+    </delete>
+    <select id="getNewsById" resultType="News">
+        select id, title, summary, info, picture
+        from new
+        where id = #{newsId}
+    </select>
+    <select id="getNewsList" parameterType="news" resultType="News">
+        select id,title,summary,picture,output_time,find_manage_account(operator) operatorAccount,operate_time
+        from new
+        <where>
+            <if test="title!=''">
+                title like concat('%',#{title},'%')
+            </if>
+            <if test="operatorAccount!=''">
+                and find_manage_id(#{operatorAccount})
+            </if>
+            <if test="outputTime!='' &amp; outputTime!=null">
+                and output_time like concat(#{outputTime},'%')
+            </if>
+        </where>
+    </select>
+    <select id="getMainLeftNewsList" resultType="News">
+        select id, title, summary, output_time
+        from new
+        order by output_time desc limit 12
+    </select>
+    <select id="getMainRightNewsList" resultType="News">
+        select id, title, summary, output_time
+        from new
+        order by output_time desc limit 12,5
+    </select>
+</mapper>

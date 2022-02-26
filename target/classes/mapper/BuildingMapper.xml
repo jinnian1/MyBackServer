@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.BuildingDao">
+
+    <insert id="addBuilding" parameterType="building">
+        insert into building(name, height, sex, operator, operate_time)
+        values (#{name}, #{height}, #{sex}, #{operator}, now())
+    </insert>
+    <update id="updateBuilding" parameterType="building">
+        update building
+        set name=#{name},
+            sex=#{sex},
+            height=#{height},
+            operator=#{operator},
+            operate_time=now()
+        where id = #{id}
+    </update>
+    <delete id="deleteBuilding">
+        delete
+        from building
+        where id = #{buildingId}
+    </delete>
+    <select id="getBuildingById" resultType="Building">
+        select id, name, height, sex
+        from building
+        where id = #{buildingId}
+    </select>
+    <select id="getBuildingList" parameterType="building" resultType="Building">
+        SELECT id,name,height,sex,find_manage_account(operator) operatorAccount,operate_time
+        FROM building
+        <where>
+            <if test="name!=''">
+                name=#{name}
+            </if>
+            <if test="sex!=''">
+                sex=#{sex}
+            </if>
+        </where>
+    </select>
+</mapper>

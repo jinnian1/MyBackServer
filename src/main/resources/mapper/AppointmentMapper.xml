@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.AppointmentDao">
+
+    <select id="appointmentList" resultType="Appointment" parameterType="Appointment">
+        SELECT a.id,s.name sname,s.class sclass,sno,phone,p.name pname,a.time
+        FROM appointment a LEFT JOIN student  s ON a.studentID=s.id
+        LEFT JOIN psychologist p ON a.psychologistID=p.id
+        WHERE a.state=0
+        <if test="sno!=''">
+            and s.sno=#{sno}
+        </if>
+        <if test="time!=null">
+            and Date(a.time)=#{time}
+        </if>
+    </select>
+    <select id="appointmentListOver" resultType="com.ffyc.myfirstboot.model.Appointment">
+        SELECT a.id,s.name sname,s.class sclass,sno,phone,p.name pname,a.time
+        FROM appointment a LEFT JOIN student  s ON a.studentID=s.id
+        LEFT JOIN psychologist p ON a.psychologistID=p.id
+        WHERE a.state=1
+        <if test="sno!=''">
+            and s.sno=#{sno}
+        </if>
+        <if test="time!=null">
+            and Date(a.time)=#{time}
+        </if>
+    </select>
+</mapper>
