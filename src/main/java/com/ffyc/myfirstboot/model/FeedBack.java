@@ -13,6 +13,7 @@ import java.util.Date;
 public class FeedBack {
     private Integer id;
     private Integer studentID;
+    private String title;
     private String info;
     private Integer state;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -25,6 +26,14 @@ public class FeedBack {
     private String operatorAccount;
     private String stateString;
     private String studentName;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getStateString() {
         return stateString;

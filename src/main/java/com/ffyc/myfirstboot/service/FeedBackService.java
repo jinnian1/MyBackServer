@@ -2,7 +2,7 @@ package com.ffyc.myfirstboot.service;
 
 import com.ffyc.myfirstboot.dao.FeedBackDao;
 import com.ffyc.myfirstboot.model.FeedBack;
-import com.ffyc.myfirstboot.model.News;
+import com.ffyc.myfirstboot.util.MarkdownUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +53,9 @@ public class FeedBackService {
     }
 
     public FeedBack getFeedBackById(Integer feedBackId) {
-        return feedBackDao.getFeedBackById(feedBackId);
+        FeedBack feedBackById = feedBackDao.getFeedBackById(feedBackId);
+        feedBackById.setInfo((MarkdownUtil.markdownToHtml(feedBackById.getInfo())));
+        return feedBackById;
     }
 
     public void updateState(FeedBack feedBack) {

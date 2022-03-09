@@ -6,6 +6,7 @@ import com.ffyc.myfirstboot.service.ManageService;
 import com.ffyc.myfirstboot.util.CommonResult;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,9 +51,8 @@ public class ControllerManage {
             return new CommonResult(300, "保存失败", null);
         }
     }
-    @RequestMapping(value ="/updateManage")
-    public CommonResult updateManage(HttpServletRequest request) {
-        String id=request.getParameter("id");
+    @RequestMapping(value ="/updateManage/{id}")
+    public CommonResult updateManage(@PathVariable("id")Integer id) {
         try {
             Manage manage = manageService.updateManage(id);
             return new CommonResult(200, "查找成功", manage);
@@ -61,20 +61,19 @@ public class ControllerManage {
             return new CommonResult(300, "查找失败",null);
         }
     }
-    @RequestMapping(value ="/updatesave")
-    public CommonResult updateSaveManage(Manage manage) {
+    @RequestMapping(value ="/updateSave")
+    public CommonResult updateSaveManage(@RequestBody  Manage manage) {
         try {
             manageService.updateSaveManage(manage);
-            return new CommonResult(200, "查找成功", manage);
+            return new CommonResult(200, "更新成功", manage);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResult(300, "查找失败",  null);
+            return new CommonResult(300, "更新失败",  null);
         }
     }
-    @RequestMapping(value ="/delete")
-    public CommonResult deleteManage(HttpServletRequest request) {
+    @RequestMapping(value ="/delete/{id}")
+    public CommonResult deleteManage(@PathVariable("id")Integer id) {
         try {
-            String id=request.getParameter("id");
             manageService.deleteManage(id);
             return new CommonResult(200, "删除成功",  null);
         } catch (Exception e) {
@@ -82,20 +81,5 @@ public class ControllerManage {
             return new CommonResult(300, "删除失败", null);
         }
     }
-/*    @RequestMapping(value ="/changeCode")
-    public CommonResult changeCode(HttpServletRequest request) {
-        try {
-            String mm = request.getParameter("mm");
-            String xmm = request.getParameter("xmm");
-            String id = request.getParameter("id");
-            int code = manageService.changeCode(mm, xmm, id);
-            if (code == 200) {
-                return new CommonResult(200, "修改成功", null);
-            }
-            return new CommonResult(300, "修改失败", null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new CommonResult(301, "服务器错误", null);
-        }
-    }*/
+
 }

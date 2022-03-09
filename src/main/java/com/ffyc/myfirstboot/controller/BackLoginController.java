@@ -2,7 +2,6 @@ package com.ffyc.myfirstboot.controller;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ffyc.myfirstboot.model.Manage;
 import com.ffyc.myfirstboot.model.Menu;
-import com.ffyc.myfirstboot.service.HelloService;
 import com.ffyc.myfirstboot.service.AdminService;
 import com.ffyc.myfirstboot.util.CommonResult;
 import com.ffyc.myfirstboot.util.TokenUtil;
@@ -17,8 +16,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/login")
 public class BackLoginController {
-    @Autowired
-    HelloService helloService;
     @Autowired
     AdminService adminService;
 

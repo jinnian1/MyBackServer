@@ -45,4 +45,12 @@ public class VolunteerService {
     public Integer isVolunteer(Integer studentId) {
         return volunteerDao.isVolunteer(studentId);
     }
+
+    public Volunteer getVolunteer(Integer studentId) {
+        return volunteerDao.getVolunteer(studentId);
+    }
+
+    public void changeState(Integer studentId, Integer state) {
+        volunteerDao.changeState(studentId,state);
+    }
 }

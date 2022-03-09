@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,7 @@ public class Foodadvservice {
 
     public PageInfo<Foodadv> Selectfoodadv(Foodadv foodadv) {
         PageHelper.startPage(foodadv.getPageNum(), foodadv.getPageSize());
-        List<Foodadv> list =  foodadvdao.Selectfoodadv();//分页查询后的数据
+        List<Foodadv> list =  foodadvdao.Selectfoodadv(foodadv);//分页查询后的数据
         PageInfo<Foodadv> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
@@ -51,8 +52,10 @@ public class Foodadvservice {
 
     public Map<String, List> streportfoodadv() {
         Map<String, List> map = new HashMap<>();
-        List<String> typeList = foodadvdao.findTypeName();
-        List<Integer> countList = foodadvdao.countByTypeList();
+      /*  List<String> typeList = foodadvdao.findTypeName();
+        List<Integer> countList = foodadvdao.countByTypeList();*/
+        List<String> typeList = Arrays.asList(new String[]{"21", "12", "21"});
+        List<Integer> countList = Arrays.asList(new Integer[]{23, 23, 23});
         map.put("x", typeList);
         map.put("y", countList);
         return map;

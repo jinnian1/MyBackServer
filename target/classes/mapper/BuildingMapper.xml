@@ -16,26 +16,23 @@
             operate_time=now()
         where id = #{id}
     </update>
-    <delete id="deleteBuilding">
-        delete
-        from building
+    <update id="deleteBuilding">
+        update building set state=0
         where id = #{buildingId}
-    </delete>
+    </update>
     <select id="getBuildingById" resultType="Building">
         select id, name, height, sex
         from building
-        where id = #{buildingId}
+        where id = #{buildingId} and building.state=1
     </select>
     <select id="getBuildingList" parameterType="building" resultType="Building">
         SELECT id,name,height,sex,find_manage_account(operator) operatorAccount,operate_time
-        FROM building
-        <where>
+        FROM building where building.state=1
             <if test="name!=''">
                 name=#{name}
             </if>
             <if test="sex!=''">
                 sex=#{sex}
             </if>
-        </where>
     </select>
 </mapper>

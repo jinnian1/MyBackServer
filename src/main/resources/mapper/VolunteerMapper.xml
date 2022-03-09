@@ -16,13 +16,18 @@
             operate_time=now()
         where id = #{id}
     </update>
+    <update id="changeState">
+        update volunteer
+        set state= #{state}
+        where studentID = #{studentId}
+    </update>
     <delete id="deleteVolunteer">
         delete
         from volunteer
         where id = #{volunteerId}
     </delete>
     <select id="getVolunteerById" resultType="Volunteer">
-        SELECT id,find_student_name(studentID) studentName,type,health,state
+        SELECT id, find_student_name(studentID) studentName, type, health, state
         FROM volunteer
         where id = #{volunteerId}
     </select>
@@ -47,5 +52,10 @@
     </select>
     <select id="isVolunteer" resultType="Integer">
         CALL isVolunteer(#{studentId},@p_result);
+    </select>
+    <select id="getVolunteer" resultType="Volunteer">
+        select *
+        from volunteer
+        where studentID = #{studentId}
     </select>
 </mapper>

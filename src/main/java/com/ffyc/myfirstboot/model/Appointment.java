@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class Appointment {
     private String sno;
     private String phone;
+    private Integer state;
     private Integer id;
     private String sname;
     private String pname;
@@ -13,7 +14,15 @@ public class Appointment {
     private  Integer pageNum;
     private  Integer pageSize;
 
-    public String getSclass() { 
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public String getSclass() {
         return sclass;
     }
 

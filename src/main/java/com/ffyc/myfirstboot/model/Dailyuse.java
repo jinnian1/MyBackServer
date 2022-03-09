@@ -17,6 +17,15 @@ public class Dailyuse {
     private Integer pageSize;
     private Integer pageNum;
     private String remark;
+    private String studentID;
+
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
+    }
 
     public String getBuildingName() {
         return buildingName;
@@ -106,5 +115,22 @@ public class Dailyuse {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "Dailyuse{" +
+                "time=" + time +
+                ", state=" + state +
+                ", id=" + id +
+                ", buildingName='" + buildingName + '\'' +
+                ", number=" + number +
+                ", phone='" + phone + '\'' +
+                ", sname='" + sname + '\'' +
+                ", dname='" + dname + '\'' +
+                ", pageSize=" + pageSize +
+                ", pageNum=" + pageNum +
+                ", remark='" + remark + '\'' +
+                '}';
     }
 }

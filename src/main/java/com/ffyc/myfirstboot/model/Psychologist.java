@@ -1,16 +1,29 @@
 package com.ffyc.myfirstboot.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
 public class Psychologist {
+    private Integer id;
     private String name;
     private String picture;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp starttime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp endtime;
     private String introduction;
     private  Integer pageNum;
     private  Integer pageSize;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getPageNum() {
         return pageNum;
@@ -66,5 +79,18 @@ public class Psychologist {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    @Override
+    public String toString() {
+        return "Psychologist{" +
+                "name='" + name + '\'' +
+                ", picture='" + picture + '\'' +
+                ", starttime=" + starttime +
+                ", endtime=" + endtime +
+                ", introduction='" + introduction + '\'' +
+                ", pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                '}';
     }
 }

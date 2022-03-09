@@ -153,4 +153,20 @@ public class NewsController {
         }
         return commonResult;
     }
+
+    /**
+     * 用户端打开新闻
+     */
+ @RequestMapping("getNewsShowById/{newsId}")
+    public CommonResult<News> getNewsShowById(@PathVariable("newsId")Integer newsId){
+        CommonResult commonResult = null;
+        try {
+            News news = newsService.getNewsShowById(newsId);
+            commonResult = new CommonResult<>(200, "查询成功", news);
+        } catch (Exception e) {
+            e.printStackTrace();
+            commonResult = new CommonResult<>(500, "查询失败", null);
+        }
+        return commonResult;
+    }
 }

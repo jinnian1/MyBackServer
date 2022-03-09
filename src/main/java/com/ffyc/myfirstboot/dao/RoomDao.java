@@ -24,4 +24,6 @@ public interface RoomDao {
     List<Room> getRoomList(Room room);
 
     Integer getFloorsByBuildingID(@Param("buildingID") Integer buildingID);
+
+    List<Room> getregiestRoom(@Param("buildingID")Integer buildingID,@Param("height")Integer height);
 }

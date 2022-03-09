@@ -11,4 +11,10 @@ public interface AppointmentDao {
     List<Appointment> appointmentList(Appointment appointment);
 
     List<Appointment> appointmentListOver(Appointment appointment);
+
+    Appointment updateAppointment(Integer id);
+
+    void updatesaveAppointment(Appointment appointment);
+
+    void delete(Integer id);
 }

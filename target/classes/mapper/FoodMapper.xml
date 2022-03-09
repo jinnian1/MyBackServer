@@ -2,17 +2,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ffyc.myfirstboot.dao.Fooddao">
     <insert id="savefood">
-    INSERT INTO food(restaurant,studentID,foodname,remark,time,state,repper)VALUES(#{restaurant},#{id},#{foodname},#{remark},now(),0,#{repper})
+    INSERT INTO food(restaurant,studentID,foodname,remark,time,state,repper)VALUES(#{restaurant},#{studentID},#{foodname},#{remark},now(),0,#{repper})
     </insert>
 
     <update id="updatefood">
 UPDATE food SET foodname=#{foodname},remark=#{remark},state=#{state},repper=#{repper} where id=#{id}
     </update>
     <delete id="delectfood">
-       DELETE FROM foodadv WHERE id=#{id}
+       DELETE FROM food WHERE id=#{id}
     </delete>
 
-    <select id="Selectfood" resultType="com.ffyc.myfirstboot.model.Food">
+    <select id="Selectfood" parameterType="food" resultType="com.ffyc.myfirstboot.model.Food">
       SELECT
       f.id,
       f.restaurant,
@@ -29,6 +29,18 @@ UPDATE food SET foodname=#{foodname},remark=#{remark},state=#{state},repper=#{re
       LEFT JOIN student s ON f.studentID = s.id
       LEFT JOIN building b ON b.id=s.buildingID
       LEFT JOIN room r ON s.roomID=r.id
+        <where>
+            <if test="name!='' &amp; name!=null">
+                s.name = #{name}
+            </if>
+            <if test="buildingName!='' &amp; buildingName!=null">
+                and  b.name = #{buildingName}
+            </if>
+            <if test="number!='' &amp; number!=null">
+                and  r.number = #{number}
+            </if>
+
+        </where>
     </select>
 
     <select id="Selectfoodid" resultType="com.ffyc.myfirstboot.model.Food">

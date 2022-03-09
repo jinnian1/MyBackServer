@@ -21,22 +21,24 @@ public class VolunteerController {
     @Autowired
     VolunteerService volunteerService;
 
-    @RequestMapping("addVolunteer/{type}")
-    public CommonResult addVolunteer(@RequestHeader("token") String token, @PathVariable("type")Integer type) {
+    @RequestMapping("addVolunteer/{studentId}/{type}")
+    public CommonResult addVolunteer( @PathVariable("studentId") Integer studentId,@PathVariable("type") Integer type) {
         CommonResult commonResult = null;
-        /*DecodedJWT tokenInfo = TokenUtil.getTokenInfo(token);
-        Integer studentId = tokenInfo.getClaim("id").asInt();
-        volunteer.setStudentID(studentId);*/
-        Volunteer volunteer = new Volunteer();
-        volunteer.setStudentID(2);
-        volunteer.setType(type);
-        volunteerService.addVolunteer(volunteer);
-        try {
-            commonResult = new CommonResult<>(200, "申请成功", null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            commonResult = new CommonResult<>(500, "服务器忙", null);
+        if (studentId == null) {
+            commonResult = new CommonResult<>(201, "请您先登录", null);
+        } else {
+            Volunteer volunteer = new Volunteer();
+            volunteer.setStudentID(studentId);
+            volunteer.setType(type);
+            volunteerService.addVolunteer(volunteer);
+            try {
+                commonResult = new CommonResult<>(200, "申请成功", null);
+            } catch (Exception e) {
+                e.printStackTrace();
+                commonResult = new CommonResult<>(500, "服务器忙", null);
+            }
         }
+
         return commonResult;
     }
 
@@ -66,8 +68,21 @@ public class VolunteerController {
         return commonResult;
     }
 
+    @RequestMapping("getVolunteer/{sid}")
+    public CommonResult<Volunteer> getVolunteer(@PathVariable("sid") Integer studentId) {
+        CommonResult<Volunteer> commonResult = null;
+        Volunteer volunteer = volunteerService.getVolunteer(studentId);
+        try {
+            commonResult = new CommonResult<>(200, "查找成功", volunteer);
+        } catch (Exception e) {
+            e.printStackTrace();
+            commonResult = new CommonResult<>(500, "服务器忙", null);
+        }
+        return commonResult;
+    }
+
     @RequestMapping("updateVolunteer")
-    public CommonResult  updateVolunteer(@RequestHeader("token") String token,@RequestBody Volunteer volunteer) {
+    public CommonResult updateVolunteer(@RequestHeader("token") String token, @RequestBody Volunteer volunteer) {
         CommonResult commonResult = null;
         DecodedJWT tokenInfo = TokenUtil.getTokenInfo(token);
         Integer manageId = tokenInfo.getClaim("id").asInt();
@@ -83,7 +98,7 @@ public class VolunteerController {
     }
 
     @RequestMapping("getVolunteerList")
-    public CommonResult<List<Volunteer>> getVolunteerList(@RequestBody Volunteer volunteer){
+    public CommonResult<List<Volunteer>> getVolunteerList(@RequestBody Volunteer volunteer) {
         CommonResult commonResult = null;
         try {
             PageInfo<Volunteer> volunteerPageInfo = volunteerService.getVolunteerList(volunteer);
@@ -99,7 +114,7 @@ public class VolunteerController {
      * 查询学生是否为志愿者 是返回状态
      */
     @RequestMapping("isVolunteer/{studentId}")
-    public CommonResult<Integer> isVolunteer(@PathVariable("studentId")Integer studentId){
+    public CommonResult<Integer> changeState(@PathVariable("studentId") Integer studentId) {
         CommonResult commonResult = null;
         try {
             Integer state = volunteerService.isVolunteer(studentId);
@@ -110,4 +125,20 @@ public class VolunteerController {
         }
         return commonResult;
     }
+
+
+    @RequestMapping("changeState/{studentId}/{state}")
+    public CommonResult<Integer> changeState(@PathVariable("studentId") Integer studentId,@PathVariable("state") Integer state) {
+        System.out.println(studentId+"////"+state);
+        CommonResult commonResult = null;
+        try {
+             volunteerService.changeState(studentId,state);
+            commonResult = new CommonResult<>(200, "修改成功", state);
+        } catch (Exception e) {
+            e.printStackTrace();
+            commonResult = new CommonResult<>(500, "查询失败", null);
+        }
+        return commonResult;
+    }
+
 }

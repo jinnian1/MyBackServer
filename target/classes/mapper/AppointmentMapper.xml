@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ffyc.myfirstboot.dao.AppointmentDao">
+    <update id="updatesaveAppointment" parameterType="Appointment">
+        update appointment set state=#{state} where id=#{id}
+    </update>
+    <delete id="delete">
+        delete from appointment where id=#{id}
+    </delete>
+    <select id="updateAppointment" resultType="Appointment">
+        SELECT
+        a.id,
+        student.sno,
+        student.name sname,
+        student.class sclass,
+        student.phone,
+        a.state,
+        p.name pname
+        FROM appointment a LEFT JOIN student ON a.studentID=student.id
+        LEFT JOIN psychologist p ON a.psychologistID=p.id
+        where a.id=#{id}
+    </select>
 
     <select id="appointmentList" resultType="Appointment" parameterType="Appointment">
         SELECT a.id,s.name sname,s.class sclass,sno,phone,p.name pname,a.time

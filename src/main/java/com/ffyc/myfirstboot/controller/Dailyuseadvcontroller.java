@@ -1,10 +1,8 @@
 package com.ffyc.myfirstboot.controller;
 
 
-import com.ffyc.myfirstboot.model.Food;
-import com.ffyc.myfirstboot.model.Foodadv;
-import com.ffyc.myfirstboot.model.Manage;
 import com.ffyc.myfirstboot.model.Dailyuseadv;
+import com.ffyc.myfirstboot.model.Manage;
 import com.ffyc.myfirstboot.service.Dailyuseadvservice;
 import com.ffyc.myfirstboot.util.CommonResult;
 import com.ffyc.myfirstboot.util.StringUtil;

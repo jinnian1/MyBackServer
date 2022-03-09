@@ -105,4 +105,15 @@ public class RoomController {
         }
         return commonResult;
     }
+
+    @RequestMapping("getregiestRoom/{buildingID}/{height}")
+    public CommonResult  getregiestRoom(@PathVariable("buildingID")Integer buildingID,@PathVariable("height")Integer height){
+        try {
+            List<Room>list= roomService.getregiestRoom(buildingID,height);
+            return  new CommonResult(200,"查找成功",list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  new CommonResult(500,"查找失败",null);
+        }
+    }
 }

@@ -12,24 +12,33 @@
 
 
     <select id="select" resultType="com.ffyc.myfirstboot.model.Dailyuseadv">
-        SELECT * FROM dailyuseadv where type=0
+        SELECT * FROM dailyuseadv where type='零食区'
     </select>
     <select id="select1" resultType="com.ffyc.myfirstboot.model.Dailyuseadv">
-        SELECT * FROM dailyuseadv where type=1
+        SELECT * FROM dailyuseadv where type='饮料区'
     </select>
     <select id="select2" resultType="com.ffyc.myfirstboot.model.Dailyuseadv">
-        SELECT * FROM dailyuseadv where type=2
+        SELECT * FROM dailyuseadv where type='奶制品区'
     </select>
     <select id="select3" resultType="com.ffyc.myfirstboot.model.Dailyuseadv">
-        SELECT * FROM dailyuseadv where type=3
+        SELECT * FROM dailyuseadv where type='日用品区'
     </select>
     <select id="select4" resultType="com.ffyc.myfirstboot.model.Dailyuseadv">
-        SELECT * FROM dailyuseadv where type=4
+        SELECT * FROM dailyuseadv where type='瓜果区'
     </select>
-    <select id="Backdailyuseadv" resultType="com.ffyc.myfirstboot.model.Dailyuseadv">
+    <select id="Backdailyuseadv" parameterType="Dailyuseadv" resultType="com.ffyc.myfirstboot.model.Dailyuseadv">
          SELECT
          *
          FROM dailyuseadv
+        <where>
+            <if test="name!=''">
+                name = #{name}
+            </if>
+            <if test="type!=''">
+                and type = #{type}
+            </if>
+
+        </where>
     </select>
     <select id="updatedailid" resultType="com.ffyc.myfirstboot.model.Dailyuseadv">
         SELECT * FROM dailyuseadv WHERE id=#{id}

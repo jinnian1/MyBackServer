@@ -11,6 +11,43 @@
             <result column="name" property="name"></result>
         </collection>
     </resultMap>
+
+    <resultMap id="updateRoleMap" type="Role">
+        <id column="id" property="id"></id>
+        <id column="name" property="name"></id>
+        <id column="mark" property="mark"></id>
+        <collection property="menuList" javaType="list" ofType="Menu">
+            <id column="menuID" property="id"></id>
+        </collection>
+    </resultMap>
+
+    <insert id="save" parameterType="Role" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+         insert into role(name,mark,operate_person,operate_time)values(#{name},#{mark},#{operatePerson},now());
+    </insert>
+    <insert id="saveRelation">
+        insert into role_menu values (#{roleid},#{menuid})
+    </insert>
+
+    <update id="updateSave" parameterType="Role">
+        update role set name=#{name},mark=#{mark},operate_person=#{operatePerson},operate_time=now() where id=#{id}
+    </update>
+
+    <select id="updateRole" resultMap="updateRoleMap">
+         SELECT r.id,r.name,r.mark,rm.menu_id menuID FROM ROLE r LEFT JOIN role_menu rm ON r.id=rm.role_id WHERE r.id=#{id}
+    </select>
+
+    <delete id="delete" parameterType="Role">
+        delete from role where id=#{id}
+    </delete>
+    <delete id="deleteRealation" parameterType="Role">
+        delete from role_menu where role_id=#{id}
+    </delete>
+    <delete id="deleteManageRole">
+        delete from manage_role where role_id=#{id}
+    </delete>
+    <delete id="deleteRoleMenu">
+        delete from role_menu where role_id=#{id}
+    </delete>
     <select id="RoleMenuRelation" resultType="Menu">
         SELECT menu.name FROM menu
          LEFT JOIN role_menu ON role_menu.menu_id=menu.id WHERE role_menu.role_id=#{id}
@@ -19,6 +56,12 @@
         SELECT r.id,r.name,mark,m.account operatePersonString,r.operate_time
         FROM ROLE r
         LEFT JOIN manage m ON r.operate_person =m.id
+       <if test="name!=''">
+                and r.name=#{name}
+        </if>
+    </select>
+    <select id="menuList" resultType="com.ffyc.myfirstboot.model.Menu">
+          SELECT id,NAME FROM menu where type=1;
     </select>
 
 

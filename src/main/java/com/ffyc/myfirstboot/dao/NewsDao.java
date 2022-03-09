@@ -25,4 +25,6 @@ public interface NewsDao {
     List<News> getMainLeftNewsList();
 
     List<News> getMainRightNewsList();
+
+    News getNewsShowById(@Param("newsId")Integer newsId);
 }

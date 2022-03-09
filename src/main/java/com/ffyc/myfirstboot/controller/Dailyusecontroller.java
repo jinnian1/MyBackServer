@@ -3,9 +3,6 @@ package com.ffyc.myfirstboot.controller;
 
 import com.ffyc.myfirstboot.model.Dailyuse;
 import com.ffyc.myfirstboot.model.Dailyuseadv;
-import com.ffyc.myfirstboot.model.Food;
-import com.ffyc.myfirstboot.model.Manage;
-import com.ffyc.myfirstboot.service.Dailyuseadvservice;
 import com.ffyc.myfirstboot.service.Dailyuseservice;
 import com.ffyc.myfirstboot.util.CommonResult;
 import com.github.pagehelper.PageInfo;
@@ -14,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -27,6 +22,7 @@ public class Dailyusecontroller {
     public CommonResult Dailyuse(@RequestBody Dailyuse dailyuse){
         System.out.println(dailyuse.getPageNum());
         System.out.println(dailyuse.getPageSize());
+        System.out.println(dailyuse);
         try {
             PageInfo<Dailyuse> dailyuses=dailyuseservice.Selectdailyuse(dailyuse);
             return new CommonResult(200, "查找成功",dailyuses.getList(),dailyuses.getTotal());

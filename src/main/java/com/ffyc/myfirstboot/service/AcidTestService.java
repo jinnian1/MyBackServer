@@ -2,6 +2,8 @@ package com.ffyc.myfirstboot.service;
 
 import com.ffyc.myfirstboot.dao.AcidTestDao;
 import com.ffyc.myfirstboot.model.AcidTest;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +34,9 @@ public class AcidTestService {
         acidTestDao.updateAcidTest(acidTest);
     }
 
-    public List<AcidTest> getAcidTestList(AcidTest acidTest) {
-        return acidTestDao.getAcidTestList(acidTest);
+    public PageInfo<AcidTest> getAcidTestList(AcidTest acidTest) {
+        PageHelper.startPage(acidTest.getPageNum(), acidTest.getPageSize());
+        List<AcidTest> list = acidTestDao.getAcidTestList(acidTest);
+        return new PageInfo<>(list);
     }
 }

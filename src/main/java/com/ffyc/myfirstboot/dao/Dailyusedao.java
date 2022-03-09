@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface Dailyusedao {
 
-    List<Dailyuse> SelectDaily();
+    List<Dailyuse> SelectDaily(Dailyuse dailyuse);
 
     Dailyuseadv Selectdailyid(Integer id);
 

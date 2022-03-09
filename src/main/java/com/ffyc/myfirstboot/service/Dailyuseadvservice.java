@@ -33,7 +33,7 @@ public class Dailyuseadvservice {
 
     public PageInfo<Dailyuseadv> Backdailyuseadv(Dailyuseadv dailyuseadv) {
         PageHelper.startPage(dailyuseadv.getPageNum(), dailyuseadv.getPageSize());
-        List<Dailyuseadv> list =dailyuseadvdao.Backdailyuseadv();//分页查询后的数据
+        List<Dailyuseadv> list =dailyuseadvdao.Backdailyuseadv(dailyuseadv);//分页查询后的数据
         PageInfo<Dailyuseadv> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }

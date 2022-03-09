@@ -14,4 +14,12 @@ public interface ExpressDao {
     void save(Express express);
 
     Integer searchID(String sno);
+
+    Express updateExpress(Integer id);
+
+    void updateSave(Express express);
+
+    List<Express> searchOver(Express express);
+
+    void frontSubmit(Express express);
 }

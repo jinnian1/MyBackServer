@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ffyc.myfirstboot.dao.PsyDao">
-
-    <select id="list" resultType="Psychologist" parameterType="Psychologist">
-
+    <insert id="addDoctor" parameterType="Psychologist">
+        insert into psychologist(name,picture,starttime,endtime,introduction)values(#{name},#{picture},#{starttime},#{endtime},#{introduction})
+    </insert>
+    <update id="updateDoctorSave" parameterType="Psychologist">
+        update psychologist
+        set name=#{name},picture=#{picture},starttime=#{starttime},endtime=#{endtime},introduction=#{introduction} where id=#{id}
+    </update>
+    <update id="psychologistDelete">
+        update psychologist set state=0 where id=#{id}
+    </update>
+    <select id="updateDoctor" resultType="com.ffyc.myfirstboot.model.Psychologist">
+        select * from psychologist where id=#{id}
     </select>
+
     <select id="searchdoctor" resultType="com.ffyc.myfirstboot.model.Psychologist">
-        SELECT id,NAME,picture,starttime,endtime,introduction FROM psychologist
+        SELECT id,NAME,picture,starttime,endtime,introduction FROM psychologist where state=1
     </select>
+    <select id="list" resultType="com.ffyc.myfirstboot.model.Psychologist"></select>
 </mapper>

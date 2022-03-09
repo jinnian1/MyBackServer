@@ -4,8 +4,8 @@
 <mapper namespace="com.ffyc.myfirstboot.dao.FeedBackDao">
 
     <insert id="addFeedBack">
-        insert into feedback(studentID, info, state, time, operator, operate_time)
-        values (#{studentID}, #{info}, 0, now(), #{operator}, now())
+        insert into feedback(studentID, title, info, state, time,operate_time)
+        values (#{studentID}, #{title},#{info}, 1, now(),now())
     </insert>
     <update id="updateState" parameterType="feedBack">
         update feedback
@@ -18,12 +18,12 @@
         where id = #{feedBackId}
     </delete>
     <select id="getFeedBackList" parameterType="feedBack" resultType="FeedBack">
-        SELECT id,
+        SELECT id,title,
         find_student_name(studentID) studentName,
         find_feedback_state(state) stateString, TIME, find_manage_account(operator) operatorAccount, operate_time
         FROM feedback
         <where>
-            <if test="studentName!=''">
+            <if test="studentName!='' &amp;studentName!=null">
                 studentID=find_student_id(#{studentName})
             </if>
             <if test="state!='' &amp; state!=null">

@@ -16,7 +16,7 @@ public class PsychologistService {
     @Autowired
     PsyDao psyDao;
 
-    public PageInfo<Psychologist> psyList(Psychologist psychologist) {
+   public PageInfo<Psychologist> psyList(Psychologist psychologist) {
         PageHelper.startPage(psychologist.getPageNum(), psychologist.getPageSize());
         List<Psychologist> list=  psyDao.list(psychologist);
         PageInfo<Psychologist> pageInfo = new PageInfo<>(list);
@@ -26,5 +26,21 @@ public class PsychologistService {
     public List<Psychologist> searchdoctor() {
         List<Psychologist> list=  psyDao.searchdoctor();
         return  list;
+    }
+
+    public void addDoctor(Psychologist psychologist) {
+        psyDao.addDoctor(psychologist);
+    }
+
+    public Psychologist updateDoctor(Integer id) {
+       return  psyDao.updateDoctor(id);
+    }
+
+    public void updateDoctorSave(Psychologist psychologist) {
+        psyDao.updateDoctorSave(psychologist);
+    }
+
+    public void psychologistDelete(Integer id) {
+       psyDao.psychologistDelete(id);
     }
 }

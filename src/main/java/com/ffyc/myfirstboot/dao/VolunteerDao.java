@@ -24,4 +24,8 @@ public interface VolunteerDao {
     List<Volunteer> getVolunteerList(Volunteer volunteer);
 
     Integer isVolunteer(@Param("studentId")Integer studentId);
+
+    Volunteer getVolunteer(@Param("studentId")Integer studentId);
+
+    void changeState(@Param("studentId")Integer studentId, @Param("state")Integer state);
 }

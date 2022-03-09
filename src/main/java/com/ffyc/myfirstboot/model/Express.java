@@ -18,7 +18,51 @@ public class Express {
     private  Integer pageNum;
     private  Integer pageSize;
     private  String code;
-    private Date outputTime;
+    private Date arriveTime;
+    private  Integer state;
+    private  Integer operatePerson;
+    private Integer studentID;
+    private  String tip;
+
+    public Date getArriveTime() {
+        return arriveTime;
+    }
+
+    public void setArriveTime(Date arriveTime) {
+        this.arriveTime = arriveTime;
+    }
+
+    public String getTip() {
+        return tip;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
+    }
+
+    public Integer getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(Integer studentID) {
+        this.studentID = studentID;
+    }
+
+    public Integer getOperatePerson() {
+        return operatePerson;
+    }
+
+    public void setOperatePerson(Integer operatePerson) {
+        this.operatePerson = operatePerson;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     public String getSno() {
         return sno;
@@ -28,13 +72,7 @@ public class Express {
         this.sno = sno;
     }
 
-    public Date getOutputTime() {
-        return outputTime;
-    }
 
-    public void setOutputTime(Date outputTime) {
-        this.outputTime = outputTime;
-    }
 
     public String getCode() {
         return code;
@@ -139,4 +177,5 @@ public class Express {
     public void setFile(String file) {
         this.file = file;
     }
+
 }

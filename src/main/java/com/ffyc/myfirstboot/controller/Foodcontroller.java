@@ -2,8 +2,6 @@ package com.ffyc.myfirstboot.controller;
 
 
 import com.ffyc.myfirstboot.model.Food;
-import com.ffyc.myfirstboot.model.Foodadv;
-import com.ffyc.myfirstboot.service.Foodadvservice;
 import com.ffyc.myfirstboot.service.Foodservice;
 import com.ffyc.myfirstboot.util.CommonResult;
 import com.github.pagehelper.PageInfo;
@@ -23,6 +21,7 @@ public class Foodcontroller {
     public CommonResult Food(@RequestBody Food food){
         System.out.println(food.getPageNum());
         System.out.println(food.getPageSize());
+        System.out.println(food);
         try {
             PageInfo<Food> foods=foodservice.Selectfood(food);
             return new CommonResult(200, "查找成功",foods.getList(),foods.getTotal());

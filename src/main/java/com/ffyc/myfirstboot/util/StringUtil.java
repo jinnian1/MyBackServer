@@ -18,8 +18,7 @@ public class StringUtil {
         }
         return null;
     }
-
-
+    
     /**
      * 生成一个新文件名 （按时间）
      */

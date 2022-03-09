@@ -2,7 +2,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ffyc.myfirstboot.dao.Dailyusedao">
     <insert id="dailyusesave">
-     INSERT INTO dailyuse(studentID,name,time,remark,state)VALUES(#{id},#{dname},,now(),#{remark},0)
+     INSERT INTO dailyuse(studentID,name,time,remark,state)VALUES(#{studentID},#{dname},now(),#{remark},0)
+
     </insert>
     <update id="updatedailyuse">
         UPDATE dailyuse SET NAME=#{dname},remark=#{remark},state=#{state} where id=#{id}
@@ -14,7 +15,7 @@
     SELECT id,NAME As dname,remark,state FROM dailyuse where id=#{id}
     </select>
 
-    <select id="SelectDaily" resultType="com.ffyc.myfirstboot.model.Dailyuse">
+    <select id="SelectDaily" parameterType="Dailyuse" resultType="com.ffyc.myfirstboot.model.Dailyuse">
     SELECT
       d.id,
       d.time,
@@ -30,6 +31,18 @@
       LEFT JOIN student s ON d.studentID = s.id
         LEFT JOIN building b ON b.id=s.buildingID
       LEFT JOIN room r ON s.roomID=r.id
+        <where>
+            <if test="sname!='' &amp; sname!=null">
+                s.name = #{sname}
+            </if>
+            <if test="buildingName!='' &amp; buildingName!=null">
+              and  b.name = #{buildingName}
+            </if>
+            <if test="number!='' &amp; number!=null">
+              and  r.number = #{number}
+            </if>
+
+        </where>
     </select>
     <select id="Selectdailyid" resultType="com.ffyc.myfirstboot.model.Dailyuseadv">
               SELECT

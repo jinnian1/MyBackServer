@@ -45,11 +45,16 @@
     <select id="getMainLeftNewsList" resultType="News">
         select id, title, summary, output_time
         from new
-        order by output_time desc limit 12
+        order by output_time desc limit 5
     </select>
     <select id="getMainRightNewsList" resultType="News">
         select id, title, summary, output_time
         from new
-        order by output_time desc limit 12,5
+        order by output_time desc limit 5,3
+    </select>
+    <select id="getNewsShowById" resultType="News">
+        select id, title, info, outPut_time
+        from new
+        where id = #{newsId}
     </select>
 </mapper>

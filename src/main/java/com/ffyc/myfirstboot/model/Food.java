@@ -13,10 +13,19 @@ public class Food {
     private  Integer restaurant;
     private  String foodname;
     private  String remark;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date time;
     private  Integer repper;
     private Integer pageNum;
+
+    public Integer getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(Integer studentID) {
+        this.studentID = studentID;
+    }
+
+    private Integer studentID;
 
     public String getBuildingName() {
         return buildingName;
@@ -115,4 +124,22 @@ public class Food {
         this.repper = repper;
     }
 
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "id=" + id +
+                ", state=" + state +
+                ", name='" + name + '\'' +
+                ", buildingName='" + buildingName + '\'' +
+                ", number=" + number +
+                ", restaurant=" + restaurant +
+                ", foodname='" + foodname + '\'' +
+                ", remark='" + remark + '\'' +
+                ", time=" + time +
+                ", repper=" + repper +
+                ", pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                '}';
+    }
 }

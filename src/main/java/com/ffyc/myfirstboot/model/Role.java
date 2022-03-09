@@ -9,10 +9,19 @@ public class Role {
     private  String mark;
     private  Integer operatePerson;
     private Timestamp operateTime;
+    private Integer[] menuID;
     private List<Menu>menuList;
     private  String operatePersonString;
     private  Integer pageNum;
     private  Integer pageSize;
+
+    public Integer[] getMenuID() {
+        return menuID;
+    }
+
+    public void setMenuID(Integer[] menuID) {
+        this.menuID = menuID;
+    }
 
     public String getOperatePersonString() {
         return operatePersonString;

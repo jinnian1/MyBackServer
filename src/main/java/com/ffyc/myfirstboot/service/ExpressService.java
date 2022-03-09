@@ -34,4 +34,23 @@ public class ExpressService {
         express.setId(id);
         expressDao.save(express);
     }
+
+    public Express updateExpress(Integer id) {
+        return  expressDao.updateExpress(id);
+    }
+
+    public void updateSave(Express express) {
+        expressDao.updateSave(express);
+    }
+
+    public PageInfo<Express> searchOver(Express express) {
+        PageHelper.startPage(express.getPageNum(), express.getPageSize());
+        List<Express>list=  expressDao.searchOver(express);
+        PageInfo<Express> pageInfo = new PageInfo<>(list);
+        return  pageInfo;
+    }
+
+    public void frontSubmit(Express express) {
+        expressDao.frontSubmit(express);
+    }
 }

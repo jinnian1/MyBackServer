@@ -14,7 +14,7 @@ public interface Dailyuseadvdao {
     List<Dailyuseadv> select3();
     List<Dailyuseadv> select4();
 
-    List<Dailyuseadv> Backdailyuseadv();
+    List<Dailyuseadv> Backdailyuseadv(Dailyuseadv dailyuseadv);
 
     void adddailyuseadv(Dailyuseadv dailyuseadv);
 

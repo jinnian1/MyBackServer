@@ -52,4 +52,8 @@ public class RoomService {
         }
         return list;
     }
+
+    public List<Room> getregiestRoom(Integer buildingID, Integer height) {
+        return  roomDao.getregiestRoom(buildingID,height);
+    }
 }

@@ -9,7 +9,15 @@ import java.util.List;
 @Repository
 public interface PsyDao {
 
+    List<Psychologist> searchdoctor();
+
+    void addDoctor(Psychologist psychologist);
+
     List<Psychologist> list(Psychologist psychologist);
 
-    List<Psychologist> searchdoctor();
+    Psychologist updateDoctor(Integer id);
+
+    void updateDoctorSave(Psychologist psychologist);
+
+    void psychologistDelete(Integer id);
 }

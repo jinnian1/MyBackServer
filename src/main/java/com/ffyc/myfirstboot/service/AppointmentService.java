@@ -28,4 +28,16 @@ public class AppointmentService {
         PageInfo<Appointment> pageInfo = new PageInfo<>(list);
         return  pageInfo;
     }
+
+    public Appointment updateAppointment(Integer id) {
+        return appointmentDao.updateAppointment(id);
+    }
+
+    public void updatesaveAppointment(Appointment appointment) {
+        appointmentDao.updatesaveAppointment(appointment);
+    }
+
+    public void deleteAppointment(Integer id) {
+        appointmentDao.delete(id);
+    }
 }

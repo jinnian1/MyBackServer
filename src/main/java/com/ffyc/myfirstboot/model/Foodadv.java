@@ -4,7 +4,7 @@ public class Foodadv {
     private  Integer id;
     private  Integer position;
     private  String file;
-    private  Integer type;
+    private  String type;
     private Integer pageNum;
     private Integer filenum;
 
@@ -41,11 +41,11 @@ public class Foodadv {
         this.id = id;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 

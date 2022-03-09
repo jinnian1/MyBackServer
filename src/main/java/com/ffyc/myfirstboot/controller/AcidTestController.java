@@ -5,14 +5,11 @@ import com.ffyc.myfirstboot.model.AcidTest;
 import com.ffyc.myfirstboot.service.AcidTestService;
 import com.ffyc.myfirstboot.util.CommonResult;
 import com.ffyc.myfirstboot.util.TokenUtil;
-import org.apache.ibatis.annotations.Param;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Deevan
@@ -89,15 +86,9 @@ public class AcidTestController {
     public CommonResult<List<AcidTest>>  getAcidTestList(@RequestBody AcidTest acidTest) {
         CommonResult<List<AcidTest>> commonResult = null;
 
-        System.out.println(acidTest.getStarttime());
-
-
-        System.out.println(acidTest.getCollege());
-
-
-        List<AcidTest> acidTestList = acidTestService.getAcidTestList(acidTest);
+        PageInfo<AcidTest> pageInfo = acidTestService.getAcidTestList(acidTest);
         try {
-            commonResult = new CommonResult<>(200, "查询成功", acidTestList);
+            commonResult = new CommonResult<>(200, "查询成功", pageInfo.getList(),pageInfo.getTotal());
         } catch (Exception e) {
             e.printStackTrace();
             commonResult = new CommonResult<>(500, "服务器忙", null);

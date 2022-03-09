@@ -13,21 +13,20 @@
             height=#{height},
             operator=#{operator},
             operate_time=now()
+            where id=#{id}
     </update>
-    <delete id="deleteRoom">
-        delete
-        from room
+    <update id="deleteRoom">
+        update room set state=0
         where id = #{roomId}
-    </delete>
+    </update>
     <select id="getRoomById" resultType="Room">
         SELECT *
         FROM room
-        WHERE id = #{roomId}
+        WHERE id = #{roomId} and room.state=1
     </select>
     <select id="getRoomList" parameterType="room" resultType="Room">
         SELECT id,number,find_building_name(buildingID) buildingName,height,find_manage_account(operator)
-        operatorAccount,operate_time FROM room r
-        <where>
+        operatorAccount,operate_time FROM room r where r.state=1
             <if test="buildingID!=''&amp; buildingID!=null">
                 buildingID=#{buildingID}
             </if>
@@ -37,9 +36,11 @@
             <if test="number!=''">
                 and number=#{number}
             </if>
-        </where>
     </select>
     <select id="getFloorsByBuildingID" resultType="java.lang.Integer">
         select height from building where id = #{buildingID}
+    </select>
+    <select id="getregiestRoom" resultType="com.ffyc.myfirstboot.model.Room">
+        SELECT * FROM room WHERE buildingID=#{buildingID} AND height=#{height} and room.state=1
     </select>
 </mapper>

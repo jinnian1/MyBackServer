@@ -21,7 +21,7 @@ public interface ManageDao {
 
     void saveManageRole(@Param("manageid")Integer id, @Param("roleid")Integer id1);
 
-    Manage updateManage(Integer manageid);
+    Manage updateManage(Integer id);
 
     void updateManageSave(Manage manage);
 

@@ -1,8 +1,6 @@
 package com.ffyc.myfirstboot.controller;
 
 
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.ffyc.myfirstboot.model.Dailyuseadv;
 import com.ffyc.myfirstboot.model.Foodadv;
 import com.ffyc.myfirstboot.model.Manage;
 import com.ffyc.myfirstboot.service.Foodadvservice;

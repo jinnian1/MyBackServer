@@ -9,7 +9,7 @@ import java.util.List;
 public interface Foodadvdao {
 
 
-    List<Foodadv> Selectfoodadv();
+    List<Foodadv> Selectfoodadv(Foodadv foodadv);
 
     List<Foodadv> foodadv0();
     List<Foodadv> foodadv1();

@@ -1,7 +1,6 @@
 package com.ffyc.myfirstboot.dao;
 
 import com.ffyc.myfirstboot.model.Food;
-import com.ffyc.myfirstboot.model.Foodadv;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
 public interface Fooddao {
 
 
-    List<Food> Selectfood();
+    List<Food> Selectfood(Food food);
 
     Food Selectfoodid(Integer id);
 

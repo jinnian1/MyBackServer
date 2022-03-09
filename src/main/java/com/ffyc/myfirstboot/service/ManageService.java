@@ -45,25 +45,29 @@ public class ManageService {
         }
     }
 
-    public Manage updateManage(String id) {
-        Integer manageid=new Integer(id);
-       return  manageDao.updateManage(manageid);
+    public Manage updateManage(Integer id) {
+      Manage manage =manageDao.updateManage(id);
+      Integer[]roleId=new Integer[manage.getRoleList().size()];
+        for (int i = 0; i <manage.getRoleList().size(); i++) {
+            roleId[i]=manage.getRoleList().get(i).getId();
+        }
+        manage.setRoleId(roleId);
+       return  manage;
     }
 
     public void updateSaveManage(Manage manage) {
         //修改管理员信息
          manageDao.updateManageSave(manage);
         //删除管理员和角色之前的联系
-           manageDao.deleteRelation(manage.getId());
+        manageDao.deleteRelation(manage.getId());
         //插入管理员和角色现在的联系
         for (int i = 0; i < manage.getRoleId().length; i++) {
             manageDao.addRelation(manage.getId(),manage.getRoleId()[i]);
         }
     }
 
-    public void deleteManage(String id) {
-        Integer id1=new Integer(id);
-        manageDao.deleteManage(id1);
+    public void deleteManage(Integer id) {
+        manageDao.deleteManage(id);
     }
 
 }

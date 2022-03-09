@@ -3,6 +3,7 @@ package com.ffyc.myfirstboot.service;
 
 import com.ffyc.myfirstboot.dao.NewsDao;
 import com.ffyc.myfirstboot.model.News;
+import com.ffyc.myfirstboot.util.MarkdownUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,11 @@ public class NewsService{
 
     public List<News> getMainRightNewsList() {
         return newsDao.getMainRightNewsList();
+    }
+
+    public News getNewsShowById(Integer newsId) {
+        News news =newsDao.getNewsShowById(newsId);
+        news.setInfo(MarkdownUtil.markdownToHtml(news.getInfo()));
+        return news;
     }
 }

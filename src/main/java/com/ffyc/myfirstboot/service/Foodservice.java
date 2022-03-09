@@ -1,9 +1,7 @@
 package com.ffyc.myfirstboot.service;
 
-import com.ffyc.myfirstboot.dao.Foodadvdao;
 import com.ffyc.myfirstboot.dao.Fooddao;
 import com.ffyc.myfirstboot.model.Food;
-import com.ffyc.myfirstboot.model.Foodadv;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,8 @@ public class Foodservice {
 
     public PageInfo<Food> Selectfood(Food food) {
         PageHelper.startPage(food.getPageNum(), food.getPageSize());
-        List<Food> list =  fooddao.Selectfood();//分页查询后的数据
+        List<Food> list =  fooddao.Selectfood(food);//分页查询后的数据
+        System.out.println(list);
         PageInfo<Food> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
