@@ -1,7 +1,6 @@
 package com.ffyc.myfirstboot.dao;
 
 import com.ffyc.myfirstboot.model.Appointment;
-import com.ffyc.myfirstboot.model.Express;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,4 +16,8 @@ public interface AppointmentDao {
     void updatesaveAppointment(Appointment appointment);
 
     void delete(Integer id);
+
+    void appointment(Appointment appointment);
+
+    Integer check(Integer studentID);
 }

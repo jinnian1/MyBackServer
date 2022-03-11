@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.StudentDao">
+    <insert id="save">
+        insert into student(name,sno,password,phone,sex,class,buildingID,roomID,college,email)
+        values(#{name},#{sno},#{password},#{phone},#{sex},#{sclass},#{buildingID},#{roomID},#{college},#{email})
+    </insert>
+
+    <select id="search" resultType="Student">
+        SELECT s.id,s.name,s.sno,s.phone,s.sex,s.class sclass,b.name buildingName,r.number,s.college,s.email
+        FROM student s LEFT JOIN building b ON s.buildingID=b.id
+        LEFT JOIN room r ON s.roomID=r.id
+        where s.state=1
+        <if test="college!=''">
+            and s.college=#{college}
+        </if>
+        <if test="sclass!=''">
+            and s.class=#{sclass}
+        </if>
+        <if test="sno!=''">
+            and s.sno=#{sno}
+        </if>
+    </select>
+    <select id="searchCode" resultType="java.lang.String">
+         select password from student where id=#{id}
+    </select>
+    <update id="changeCode">
+        update  student set password=#{mm} where id=#{id}
+    </update>
+    <update id="updateStudentSave" parameterType="Student">
+         update student set name=#{name},sno=#{sno},phone=#{phone},
+         sex=#{sex},class=#{sclass},buildingID=#{buildingID},roomID=#{roomID},college=#{college},email=#{email}
+        where id=#{id}
+    </update>
+    <update id="resetPassword">
+        update student set password=#{mm} where id=#{id}
+    </update>
+    <select id="updateStudent" resultType="Student">
+          select s.id,s.name,s.sno,s.phone,s.sex,s.class sclass,s.buildingID,s.roomID,room.height,s.college,s.email from student s
+         left join room on room.id=s.roomID where s.id=#{id}
+    </select>
+</mapper>

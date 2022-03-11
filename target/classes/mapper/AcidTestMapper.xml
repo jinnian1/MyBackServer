@@ -28,7 +28,8 @@
         where id = #{acidTestId}
     </select>
     <select id="getAcidTestList" parameterType="acidTest" resultType="AcidTest">
-        select id,starttime,endtime,college,address,find_manage_account(operator)operatorAccount,operate_time
+        select
+        id,starttime,endtime,find_college_name(college)collegeName,address,find_manage_account(operator)operatorAccount,operate_time
         from acidtest
         <where>
             <if test="starttime!='' &amp; starttime!=null">
@@ -37,9 +38,10 @@
             <if test="endtime!='' &amp; endtime!=null">
                 and endtime &lt;= #{endtime}
             </if>
-            <if test="college!=''">
+            <if test="college!='' &amp; college!=null">
                 and college = #{college}
             </if>
         </where>
+        order by endtime desc
     </select>
 </mapper>

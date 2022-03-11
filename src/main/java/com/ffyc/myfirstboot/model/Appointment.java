@@ -13,6 +13,24 @@ public class Appointment {
     private Timestamp time;
     private  Integer pageNum;
     private  Integer pageSize;
+    private Integer studentID;
+    private Integer psychologistID;
+
+    public Integer getPsychologistID() {
+        return psychologistID;
+    }
+
+    public void setPsychologistID(Integer psychologistID) {
+        this.psychologistID = psychologistID;
+    }
+
+    public Integer getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(Integer studentID) {
+        this.studentID = studentID;
+    }
 
     public Integer getState() {
         return state;

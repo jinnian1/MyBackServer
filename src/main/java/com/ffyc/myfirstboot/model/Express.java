@@ -11,8 +11,7 @@ public class Express {
     private  Integer number;
     private  String sex;
     private  String phone;
-    private Integer type;
-    private String typeString;
+    private String type;
     private  String file;
     private Timestamp time;
     private  Integer pageNum;
@@ -23,6 +22,14 @@ public class Express {
     private  Integer operatePerson;
     private Integer studentID;
     private  String tip;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Date getArriveTime() {
         return arriveTime;
@@ -152,22 +159,6 @@ public class Express {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public String getTypeString() {
-        return typeString;
-    }
-
-    public void setTypeString(String typeString) {
-        this.typeString = typeString;
     }
 
     public String getFile() {

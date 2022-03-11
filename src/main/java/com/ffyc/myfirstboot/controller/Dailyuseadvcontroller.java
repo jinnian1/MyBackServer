@@ -74,8 +74,6 @@ public class Dailyuseadvcontroller {
 
     @RequestMapping(value ="/backdailyuseadv")
     public CommonResult backdailyuseadv(@RequestBody Dailyuseadv dailyuseadv){
-        System.out.println(dailyuseadv.getPageNum());
-        System.out.println(dailyuseadv.getPageSize());
         try {
             PageInfo<Dailyuseadv> dailyuseadvs=dailyuseadvservice.Backdailyuseadv(dailyuseadv);
             return new CommonResult(200, "查找成功",dailyuseadvs.getList(),dailyuseadvs.getTotal());
@@ -87,9 +85,7 @@ public class Dailyuseadvcontroller {
 
     @RequestMapping(value ="/adddailyuseadv")
     public CommonResult adddailyuseadv(@RequestBody Dailyuseadv dailyuseadv) {
-        System.out.println(dailyuseadv);
         dailyuseadv.setPicture(StringUtil.subFileType1(dailyuseadv.getPicture()));
-        System.out.println(dailyuseadv);
         try {
              dailyuseadvservice.adddailyuseadv(dailyuseadv);
             return new CommonResult(200, "查找成功",null);
@@ -114,9 +110,7 @@ public class Dailyuseadvcontroller {
 
     @RequestMapping(value ="/updatedail")
     public CommonResult updatedail(@RequestBody Dailyuseadv dailyuseadv){
-        System.out.println(dailyuseadv);
         dailyuseadv.setPicture(StringUtil.subFileType1(dailyuseadv.getPicture()));
-        System.out.println(dailyuseadv);
         try {
             dailyuseadvservice.updatedail(dailyuseadv);
             return new CommonResult(200, "查找成功",null);
@@ -144,7 +138,6 @@ public class Dailyuseadvcontroller {
 
     @RequestMapping(value ="uppicture")
     public CommonResult<String> uppicture(@RequestParam("adminFile") CommonsMultipartFile adminFile) {
-        System.out.println("上传头像");
         CommonResult<String> commonResult = null;
         //指定文件地址  localhost
         File folder = new File("D:\\apache-tomcat-9.0.431\\webapps\\ROOT\\EPC\\dailyuse");

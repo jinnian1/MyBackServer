@@ -20,9 +20,6 @@ public class Dailyusecontroller {
 
     @RequestMapping(value ="/dailyuse")
     public CommonResult Dailyuse(@RequestBody Dailyuse dailyuse){
-        System.out.println(dailyuse.getPageNum());
-        System.out.println(dailyuse.getPageSize());
-        System.out.println(dailyuse);
         try {
             PageInfo<Dailyuse> dailyuses=dailyuseservice.Selectdailyuse(dailyuse);
             return new CommonResult(200, "查找成功",dailyuses.getList(),dailyuses.getTotal());

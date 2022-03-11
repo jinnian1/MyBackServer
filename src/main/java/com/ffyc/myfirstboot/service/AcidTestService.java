@@ -2,6 +2,7 @@ package com.ffyc.myfirstboot.service;
 
 import com.ffyc.myfirstboot.dao.AcidTestDao;
 import com.ffyc.myfirstboot.model.AcidTest;
+import com.ffyc.myfirstboot.model.College;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

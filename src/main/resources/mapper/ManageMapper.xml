@@ -128,4 +128,8 @@
     <select id="searchCode" resultType="String">
         select password from manage where id=#{id}
     </select>
+
+    <update id="resetPassword">
+        update manage set password=#{mm} where id=#{id}
+    </update>
 </mapper>

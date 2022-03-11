@@ -35,7 +35,6 @@ public class ManageService {
     public void save(Manage manage) {
         //1.密码初始化，加密
         String  password= DigestUtils.md5Hex("111111");
-        System.out.println(password);
         manage.setPassword(password);
         //2.保存管理员信息
         manageDao.save(manage);
@@ -70,4 +69,20 @@ public class ManageService {
         manageDao.deleteManage(id);
     }
 
+    public Integer changeCode(Manage manage) {
+        String  passwordjm= DigestUtils.md5Hex(manage.getPassword1());//原密码加密比较
+        String origin=manageDao.searchCode(manage.getId());
+        if(passwordjm.equals(origin)){
+            manageDao.changeCode(DigestUtils.md5Hex(manage.getPassword()),manage.getId());
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public void resetPassword(Integer id) {
+        //密码重置111111，加密
+        String  password= DigestUtils.md5Hex("111111");
+        manageDao.resetPassword(id,password);
+    }
 }

@@ -40,4 +40,12 @@ public class AppointmentService {
     public void deleteAppointment(Integer id) {
         appointmentDao.delete(id);
     }
+
+    public void appointment(Appointment appointment) {
+        appointmentDao.appointment(appointment);
+    }
+
+    public Integer check(Integer studentID) {
+        return appointmentDao.check(studentID);
+    }
 }

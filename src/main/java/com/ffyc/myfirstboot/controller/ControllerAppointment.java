@@ -67,4 +67,20 @@ public class ControllerAppointment {
             return new CommonResult<Psychologist>(300, "删除失败", null);
         }
     }
+    @RequestMapping("/appointment")
+    public CommonResult appointment(@RequestBody Appointment appointment){
+        try {
+            int check=appointmentService.check(appointment.getStudentID());
+            if(check==0){
+                appointmentService.appointment(appointment);
+                return new CommonResult(200, "预约成功，，在个人中心查看",null);
+            }else{
+                return new CommonResult(201, "您最多只能预约一场心理咨询，在个人中心查看",null);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResult<Psychologist>(300, "预约失败", null);
+        }
+    }
 }

@@ -81,5 +81,30 @@ public class ControllerManage {
             return new CommonResult(300, "删除失败", null);
         }
     }
+    @RequestMapping(value ="/changeCode")
+    public CommonResult changeCode(@RequestBody  Manage manage) {
+        try {
+            //检查原密码正确与否,正确保存新密码
+           Integer check= manageService.changeCode(manage);
+           if(check.equals(1)){
+               return new CommonResult(200, "修改成功",  null);
+           }else{
+               return new CommonResult(201, "原密码错误",  null);
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResult(300, "修改失败", null);
+        }
+    }
+    @RequestMapping(value ="/resetPassword/{id}")
+    public CommonResult resetPassword(@PathVariable("id")Integer id) {
+        try {
+            manageService.resetPassword(id);
+            return new CommonResult(200, "重置成功",  null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResult(300, "查找失败", null);
+        }
+    }
 
 }

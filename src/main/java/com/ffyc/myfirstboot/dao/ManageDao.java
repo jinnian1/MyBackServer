@@ -31,7 +31,10 @@ public interface ManageDao {
 
     void deleteManage(Integer id1);
 
-    String searchCode(Integer id1);
+    String searchCode(Integer id);
 
     void changeCode(@Param("mm")String mm1,@Param("id")Integer id);
+
+    void resetPassword(@Param("id")Integer id,@Param("mm")String password);
+
 }

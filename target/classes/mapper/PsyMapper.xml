@@ -6,7 +6,7 @@
     </insert>
     <update id="updateDoctorSave" parameterType="Psychologist">
         update psychologist
-        set name=#{name},picture=#{picture},starttime=#{starttime},endtime=#{endtime},introduction=#{introduction} where id=#{id}
+        set name=#{name},picture=#{picture},starttime=#{starttime},endtime=#{endtime},introduction=#{introduction},state=#{state} where id=#{id}
     </update>
     <update id="psychologistDelete">
         update psychologist set state=0 where id=#{id}
@@ -16,7 +16,10 @@
     </select>
 
     <select id="searchdoctor" resultType="com.ffyc.myfirstboot.model.Psychologist">
-        SELECT id,NAME,picture,starttime,endtime,introduction FROM psychologist where state=1
+        SELECT id,NAME,picture,starttime,endtime,introduction,state FROM psychologist where state!=0
     </select>
     <select id="list" resultType="com.ffyc.myfirstboot.model.Psychologist"></select>
+    <select id="searchNum" resultType="java.lang.Integer">
+        select count(*) from appointment where psychologistID=#{id} and state=0
+    </select>
 </mapper>

@@ -22,6 +22,15 @@ public class Manage {
     private  Integer pageNum;
     private  Integer pageSize;
     private Date birthday;
+    private String password1;  //修改密码时的原密码
+
+    public String getPassword1() {
+        return password1;
+    }
+
+    public void setPassword1(String password1) {
+        this.password1 = password1;
+    }
 
     public Date getBirthday() {
         return birthday;

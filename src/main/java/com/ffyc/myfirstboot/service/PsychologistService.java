@@ -25,6 +25,9 @@ public class PsychologistService {
 
     public List<Psychologist> searchdoctor() {
         List<Psychologist> list=  psyDao.searchdoctor();
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setAppointedNum(psyDao.searchNum(list.get(i).getId()));
+        }
         return  list;
     }
 

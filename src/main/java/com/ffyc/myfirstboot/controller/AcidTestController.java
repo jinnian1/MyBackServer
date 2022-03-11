@@ -2,6 +2,7 @@ package com.ffyc.myfirstboot.controller;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ffyc.myfirstboot.model.AcidTest;
+import com.ffyc.myfirstboot.model.College;
 import com.ffyc.myfirstboot.service.AcidTestService;
 import com.ffyc.myfirstboot.util.CommonResult;
 import com.ffyc.myfirstboot.util.TokenUtil;
@@ -64,7 +65,7 @@ public class AcidTestController {
     }
 
     @RequestMapping("updateAcidTest")
-    public CommonResult  updateAcidTest(@RequestHeader("token") String token,@RequestBody AcidTest acidTest) {
+    public CommonResult updateAcidTest(@RequestHeader("token") String token, @RequestBody AcidTest acidTest) {
         CommonResult commonResult = null;
         DecodedJWT tokenInfo = TokenUtil.getTokenInfo(token);
         Integer manageId = tokenInfo.getClaim("id").asInt();
@@ -80,15 +81,15 @@ public class AcidTestController {
     }
 
     /**
-     * 传入参数类型错误   ***********************
+     * 传入参数类型错误
      */
     @RequestMapping("getAcidTestList")
-    public CommonResult<List<AcidTest>>  getAcidTestList(@RequestBody AcidTest acidTest) {
+    public CommonResult<List<AcidTest>> getAcidTestList(@RequestBody AcidTest acidTest) {
         CommonResult<List<AcidTest>> commonResult = null;
 
         PageInfo<AcidTest> pageInfo = acidTestService.getAcidTestList(acidTest);
         try {
-            commonResult = new CommonResult<>(200, "查询成功", pageInfo.getList(),pageInfo.getTotal());
+            commonResult = new CommonResult<>(200, "查询成功", pageInfo.getList(), pageInfo.getTotal());
         } catch (Exception e) {
             e.printStackTrace();
             commonResult = new CommonResult<>(500, "服务器忙", null);

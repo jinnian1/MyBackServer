@@ -16,7 +16,8 @@ public class AcidTest {
     private Date starttime;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endtime;
-    private String college;
+    private Integer college;
+    private String collegeName;
     private String address;
     private Integer operator;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -57,12 +58,20 @@ public class AcidTest {
         this.endtime = endtime;
     }
 
-    public String getCollege() {
+    public Integer getCollege() {
         return college;
     }
 
-    public void setCollege(String college) {
+    public void setCollege(Integer college) {
         this.college = college;
+    }
+
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
     }
 
     public String getAddress() {

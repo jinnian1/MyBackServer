@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ffyc.myfirstboot.dao.AppointmentDao">
+    <insert id="appointment" parameterType="Appointment">
+        insert  into appointment(studentID,psychologistID,time)values(#{studentID},#{psychologistID},now())
+    </insert>
     <update id="updatesaveAppointment" parameterType="Appointment">
         update appointment set state=#{state} where id=#{id}
     </update>
@@ -32,6 +35,9 @@
         <if test="time!=null">
             and Date(a.time)=#{time}
         </if>
+        <if test="pname!=''">
+            and p.name=#{pname}
+        </if>
     </select>
     <select id="appointmentListOver" resultType="com.ffyc.myfirstboot.model.Appointment">
         SELECT a.id,s.name sname,s.class sclass,sno,phone,p.name pname,a.time
@@ -44,5 +50,11 @@
         <if test="time!=null">
             and Date(a.time)=#{time}
         </if>
+        <if test="pname!=''">
+            and p.name=#{pname}
+        </if>
+    </select>
+    <select id="check" resultType="integer">
+        select count(*) from appointment where studentID=#{studentID} and state=0
     </select>
 </mapper>

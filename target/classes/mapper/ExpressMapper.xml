@@ -21,7 +21,7 @@
 
 
     <select id="expressList" resultType="Express" parameterType="Express">
-        SELECT e.id,s.NAME student_name,b.name building_name,r.number,s.sex,phone,expressType(TYPE)type_string,e.time,e.code,e.tip,e.arriveTime
+        SELECT e.id,s.NAME student_name,b.name building_name,r.number,s.sex,phone,e.type,e.time,e.code,e.tip,e.arriveTime
         FROM express e
         LEFT JOIN student s ON e.studentID=s.id
         LEFT JOIN building b ON s.buildingID=b.id
@@ -33,12 +33,18 @@
         <if test="arriveTime!=null">
             and Date(e.arriveTime)=#{arriveTime}
         </if>
+        <if test="buildingName!=''">
+            and b.name=#{buildingName}
+        </if>
+        <if test="type!=''">
+            and e.type=#{type}
+        </if>
     </select>
     <select id="searchID" resultType="java.lang.Integer">
         select id from student where sno=#{sno}
     </select>
     <select id="searchOver" resultType="com.ffyc.myfirstboot.model.Express">
-        SELECT e.id,s.NAME student_name,b.name building_name,r.number,s.sex,phone,expressType(TYPE)type_string,e.time,e.code,e.arriveTime
+        SELECT e.id,s.NAME student_name,b.name building_name,r.number,s.sex,phone,e.type,e.time,e.code,e.arriveTime
         FROM express e
         LEFT JOIN student s ON e.studentID=s.id
         LEFT JOIN building b ON s.buildingID=b.id
@@ -49,6 +55,12 @@
         </if>
         <if test="arriveTime!=null">
             and Date(e.arriveTime)=#{arriveTime}
+        </if>
+        <if test="buildingName!=''">
+            and b.name=#{buildingName}
+        </if>
+        <if test="type!=''">
+            and e.type=#{type}
         </if>
     </select>
 </mapper>

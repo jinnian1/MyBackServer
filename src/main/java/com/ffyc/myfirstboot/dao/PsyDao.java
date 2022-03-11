@@ -1,6 +1,5 @@
 package com.ffyc.myfirstboot.dao;
 
-import com.ffyc.myfirstboot.model.Express;
 import com.ffyc.myfirstboot.model.Psychologist;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +19,6 @@ public interface PsyDao {
     void updateDoctorSave(Psychologist psychologist);
 
     void psychologistDelete(Integer id);
+
+    Integer searchNum(Integer id);
 }

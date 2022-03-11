@@ -3,6 +3,7 @@ package com.ffyc.myfirstboot.service;
 import com.ffyc.myfirstboot.dao.ManageDao;
 import com.ffyc.myfirstboot.model.Manage;
 import com.ffyc.myfirstboot.model.Menu;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class AdminService {
 
 
     public Manage login(Manage manage) {
+        //密码加密与数据库比较
+        String  password= DigestUtils.md5Hex(manage.getPassword());
+        manage.setPassword(password);
         return manageDao.login(manage);
     }
 

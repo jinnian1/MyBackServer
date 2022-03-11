@@ -16,6 +16,24 @@ public class Psychologist {
     private String introduction;
     private  Integer pageNum;
     private  Integer pageSize;
+    private Integer appointedNum;
+    private Integer state;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public Integer getAppointedNum() {
+        return appointedNum;
+    }
+
+    public void setAppointedNum(Integer appointedNum) {
+        this.appointedNum = appointedNum;
+    }
 
     public Integer getId() {
         return id;
