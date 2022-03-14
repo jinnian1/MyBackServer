@@ -4,8 +4,8 @@
 <mapper namespace="com.ffyc.myfirstboot.dao.BuildingDao">
 
     <insert id="addBuilding" parameterType="building">
-        insert into building(name, height, sex, operator, operate_time)
-        values (#{name}, #{height}, #{sex}, #{operator}, now())
+        insert into building(name, height, type,sex, operator, operate_time)
+        values (#{name}, #{height}, 1,#{sex}, #{operator}, now())
     </insert>
     <update id="updateBuilding" parameterType="building">
         update building

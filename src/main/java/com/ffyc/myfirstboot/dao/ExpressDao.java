@@ -22,4 +22,6 @@ public interface ExpressDao {
     List<Express> searchOver(Express express);
 
     void frontSubmit(Express express);
+
+    List<Express> centerSearch(Express express);
 }

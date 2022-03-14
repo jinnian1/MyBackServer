@@ -88,10 +88,10 @@ public class Dailyuseadvcontroller {
         dailyuseadv.setPicture(StringUtil.subFileType1(dailyuseadv.getPicture()));
         try {
              dailyuseadvservice.adddailyuseadv(dailyuseadv);
-            return new CommonResult(200, "查找成功",null);
+            return new CommonResult(200, "添加成功",null);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResult<>(300, "查找失败", (Manage) null);
+            return new CommonResult<>(300, "添加失败", (Manage) null);
         }
     }
 
@@ -101,10 +101,10 @@ public class Dailyuseadvcontroller {
 
         try {
             Dailyuseadv dailyuseadv=dailyuseadvservice.updatedailid(id);
-            return new CommonResult(200, "查找成功",dailyuseadv);
+            return new CommonResult(200, "更新成功",dailyuseadv);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResult<>(300, "查找失败",  null);
+            return new CommonResult<>(300, "更新失败",  null);
         }
     }
 
@@ -113,10 +113,10 @@ public class Dailyuseadvcontroller {
         dailyuseadv.setPicture(StringUtil.subFileType1(dailyuseadv.getPicture()));
         try {
             dailyuseadvservice.updatedail(dailyuseadv);
-            return new CommonResult(200, "查找成功",null);
+            return new CommonResult(200, "更新成功",null);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResult<>(300, "查找失败",  null);
+            return new CommonResult<>(300, "更新失败",  null);
         }
     }
 
@@ -130,7 +130,7 @@ public class Dailyuseadvcontroller {
             return new CommonResult(200, "删除成功",null);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResult<>(300, "查找失败",  null);
+            return new CommonResult<>(300, "删除失败",  null);
         }
     }
 
@@ -138,6 +138,7 @@ public class Dailyuseadvcontroller {
 
     @RequestMapping(value ="uppicture")
     public CommonResult<String> uppicture(@RequestParam("adminFile") CommonsMultipartFile adminFile) {
+        System.out.println("上传头像");
         CommonResult<String> commonResult = null;
         //指定文件地址  localhost
         File folder = new File("D:\\apache-tomcat-9.0.431\\webapps\\ROOT\\EPC\\dailyuse");
@@ -162,7 +163,7 @@ public class Dailyuseadvcontroller {
             commonResult = new CommonResult<>(200, "上传成功,保存后更换", imgUrl);
         } catch (IOException e) {
             e.printStackTrace();
-            commonResult = new CommonResult<>(500, "服务器忙", null);
+            commonResult = new CommonResult<>(500, "上传失败，服务器忙", null);
         }
         return commonResult;
     }

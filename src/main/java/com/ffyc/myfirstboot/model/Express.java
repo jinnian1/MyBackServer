@@ -22,6 +22,15 @@ public class Express {
     private  Integer operatePerson;
     private Integer studentID;
     private  String tip;
+    private Boolean value;
+
+    public Boolean getValue() {
+        return value;
+    }
+
+    public void setValue(Boolean value) {
+        this.value = value;
+    }
 
     public String getType() {
         return type;

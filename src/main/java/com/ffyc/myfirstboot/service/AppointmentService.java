@@ -7,10 +7,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class AppointmentService {
     @Autowired
     AppointmentDao appointmentDao;
@@ -41,11 +43,27 @@ public class AppointmentService {
         appointmentDao.delete(id);
     }
 
-    public void appointment(Appointment appointment) {
-        appointmentDao.appointment(appointment);
+    public  synchronized int appointment(Appointment appointment) {
+       int num= appointmentDao.checkNum(appointment.getPsychologistID());
+       if(num==10){
+            return  0;
+       }else{
+           Appointment temp= appointmentDao.searchTime(appointment.getPsychologistID());
+           appointment.setStarttime(temp.getStarttime());
+           appointment.setEndtime(temp.getEndtime());
+           appointmentDao.appointment(appointment);
+           return 1;
+       }
     }
 
     public Integer check(Integer studentID) {
         return appointmentDao.check(studentID);
+    }
+
+    public PageInfo<Appointment> centersearch(Appointment appointment) {
+        PageHelper.startPage(appointment.getPageNum(), appointment.getPageSize());
+        List<Appointment> list=  appointmentDao.centersearch(appointment);
+        PageInfo<Appointment> pageInfo = new PageInfo<>(list);
+        return  pageInfo;
     }
 }

@@ -53,4 +53,11 @@ public class ExpressService {
     public void frontSubmit(Express express) {
         expressDao.frontSubmit(express);
     }
+
+    public PageInfo<Express> centerSearch(Express express) {
+        PageHelper.startPage(express.getPageNum(), express.getPageSize());
+        List<Express>list=  expressDao.centerSearch(express);
+        PageInfo<Express> pageInfo = new PageInfo<>(list);
+        return  pageInfo;
+    }
 }

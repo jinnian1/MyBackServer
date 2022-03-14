@@ -24,8 +24,6 @@ public class Foodadvcontroller {
 
     @RequestMapping(value ="/foodadv")
     public CommonResult Foodadv(@RequestBody Foodadv foodadv){
-        System.out.println(foodadv.getPageNum());
-        System.out.println(foodadv.getPageSize());
         try {
             PageInfo<Foodadv> foodadvs=foodadvservice.Selectfoodadv(foodadv);
             return new CommonResult(200, "查找成功",foodadvs.getList(),foodadvs.getTotal());
@@ -69,7 +67,6 @@ public class Foodadvcontroller {
 
     @RequestMapping(value ="Menufigure")
     public CommonResult<String> fileUpload(@RequestParam("adminFile") CommonsMultipartFile adminFile) {
-        System.out.println("上传头像");
         CommonResult<String> commonResult = null;
         //指定文件地址  localhost
         File folder = new File("D:\\apache-tomcat-9.0.431\\webapps\\ROOT\\EPC\\food");
@@ -82,10 +79,7 @@ public class Foodadvcontroller {
         //生成新文件
         String oldFileName = adminFile.getOriginalFilename();
         String newFileName = StringUtil.newFileName(oldFileName);
-        System.out.println(oldFileName);
-        System.out.println(newFileName);
         File file = new File(folder, newFileName);
-        System.out.println(file);
         try {
             //只上传问价,不存数据库
             adminFile.transferTo(file);
@@ -104,9 +98,7 @@ public class Foodadvcontroller {
 
     @RequestMapping(value ="/addfoodadv")
     public CommonResult addfoodadv(@RequestBody Foodadv foodadv){
-        System.out.println(foodadv);
         foodadv.setFile(StringUtil.subFileType1(foodadv.getFile()));
-        System.out.println(foodadv);
         try {
             foodadvservice.addfoodadv(foodadv);
             return new CommonResult(200, "查找成功",null);
@@ -118,21 +110,18 @@ public class Foodadvcontroller {
 
     @RequestMapping(value ="/updatefoodadv")
     public CommonResult updatefoodadv(@RequestBody Foodadv foodadv){
-        System.out.println(foodadv);
         foodadv.setFile(StringUtil.subFileType1(foodadv.getFile()));
-        System.out.println(foodadv);
         try {
             foodadvservice.updatefoodadv(foodadv);
-            return new CommonResult(200, "查找成功",null);
+            return new CommonResult(200, "更新成功",null);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResult<>(300, "查找失败",  null);
+            return new CommonResult<>(300, "更新失败",  null);
         }
     }
 
     @RequestMapping(value ="/updatefoodadvid/{id}")
     public CommonResult updatefoodadvid(@PathVariable("id") Integer id){
-
         try {
             Foodadv foodadv=foodadvservice.updatefoodadvid(id);
             return new CommonResult(200, "查找成功",foodadv);
@@ -154,12 +143,6 @@ public class Foodadvcontroller {
         }
     }
 
-
-
-
-
-
-
     @RequestMapping(value ="/deletefoodadv/{id}")
     public CommonResult delectfood(@PathVariable("id") Integer id){
 
@@ -168,7 +151,7 @@ public class Foodadvcontroller {
             return new CommonResult(200, "删除成功",null);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResult<>(300, "查找失败",  null);
+            return new CommonResult<>(300, "删除失败",  null);
         }
     }
 }

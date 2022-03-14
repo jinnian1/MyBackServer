@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.TaskDao">
+    <insert id="creatTask" parameterType="task" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into task(type, start, end, output_time, state, operator)
+        values (#{type}, #{start}, #{end}, now(), 1, #{operator})
+    </insert>
+    <insert id="insertTaskExpress">
+        insert into task_express (task_id, express_id)
+        values (#{taskId}, #{expressId});
+    </insert>
+    <insert id="insertTaskFood">
+        insert into task_food (task_id, food_id)
+        values (#{taskId}, #{foodId});
+    </insert>
+    <insert id="insertTaskDaily">
+        insert into task_daily (task_id, daily_id)
+        values (#{taskId}, #{dailyId});
+    </insert>
+    <update id="updateExpressState">
+        update express
+        set state=1
+        where id = #{id}
+    </update>
+    <update id="updateExpressStateByTaskId">
+        update express e
+            left join task_express te
+        on e.id=te.express_id
+            set e.state=0
+        where te.task_id=#{id}
+    </update>
+    <update id="updateTaskState">
+        update food
+        set state=1
+        where id = #{id}
+    </update>
+    <update id="updateFoodStateByTaskId">
+        update food e
+            left join task_food te
+        on e.id=te.food_id
+            set e.state=0
+        where te.task_id=#{taskId}
+    </update>
+    <update id="updateDailyState">
+        update dailyuse
+        set state=1
+        where id = #{dailyId}
+    </update>
+    <update id="updateDailyStateByTaskId">
+        update dailyuse d
+            left join task_daily td
+        on d.id=td.daily_id
+            set d.state=0
+        where td.task_id=#{taskId}
+    </update>
+    <update id="acceptTask">
+        update task
+        set studentID=#{studentID},
+            state=2
+        where id = #{taskId}
+    </update>
+    <update id="updateTaskAccept">
+        update task
+        set studentID = null,
+            state=1
+        where id = #{taskId}
+    </update>
+    <update id="overTask">
+        update task
+        set state = 3
+        where studentID = #{studentID}
+    </update>
+    <delete id="deleteTask">
+        delete
+        from task
+        where id = #{id}
+    </delete>
+    <delete id="deleteTaskExpressByTaskId">
+        delete
+        from task_express
+        where task_id = #{taskId}
+    </delete>
+    <delete id="deleteTaskFoodByTaskId">
+        delete
+        from task_food
+        where task_id = #{taskId}
+    </delete>
+    <delete id="deleteTaskDailyByTaskId">
+        delete
+        from task_daily
+        where task_id = #{taskId}
+    </delete>
+
+    <select id="getTaskList" parameterType="task" resultType="Task">
+        select id, type, find_student_name(studentID)studentName, find_task_type(type) typeString,
+        find_building_name(start) startString,
+        find_building_name(end)endString,
+        output_time,
+        find_task_state(state) stateString,
+        find_manage_account(operator) operatorAccount
+        from task
+        <where>
+            <if test="type!=null &amp; type!=''">
+                type=#{type}
+            </if>
+            <if test="state!=null &amp; state!=''">
+                and state=#{state}
+            </if>
+            <if test="studentID!=null &amp; studentID!=''">
+                and studentID=#{studentID}
+            </if>
+        </where>
+    </select>
+    <select resultType="building" id="getBuildings">
+        select *
+        from building
+        where type = 1
+    </select>
+    <select id="expressList" parameterType="task" resultType="Express">
+        SELECT e.id,s.NAME student_name,b.name
+        building_name,r.number,s.sex,phone,e.type,e.time,e.code,e.tip,e.arriveTime
+        FROM express e
+        LEFT JOIN student s ON e.studentID=s.id
+        LEFT JOIN building b ON s.buildingID=b.id
+        LEFT JOIN room r ON s.roomID=r.id
+        <where>
+            e.state=0
+            <if test="buildingId!=null &amp;buildingId!='' ">
+                and s.buildingID=#{buildingId}
+            </if>
+            <if test="expressType!=null &amp;expressType!='' ">
+                and e.type=#{expressType}
+            </if>
+        </where>
+    </select>
+    <select id="getTypeById" resultType="integer">
+        select type
+        from task
+        where id = #{id}
+    </select>
+    <select id="getExpressByTask" resultType="Express">
+        SELECT e.id,
+               s.NAME student_name,
+               b.name
+                      building_name,
+               r.number,
+               s.sex,
+               phone,
+               e.type,
+               e.time,
+               e.code,
+               e.tip,
+               e.arriveTime
+        FROM express e
+                 LEFT JOIN student s ON e.studentID = s.id
+                 LEFT JOIN building b ON s.buildingID = b.id
+                 LEFT JOIN room r ON s.roomID = r.id
+                 left join task_express te on te.express_id = e.id
+        where te.task_id = #{taskId}
+    </select>
+    <select id="getFoodList" resultType="Food">
+        SELECT
+        f.id,
+        fadv.type rest,
+        fadv.name foodname,
+        f.remark,
+        f.time,
+        f.repper repperString,
+        f.state,
+        s.name,
+        b.name buildingName,
+        r.number
+        FROM
+        food f
+        LEFT JOIN student s
+        ON f.studentID = s.id
+        LEFT JOIN building b
+        ON b.id = s.buildingID
+        LEFT JOIN room r
+        ON s.roomID = r.id
+        LEFT JOIN foodadv fadv
+        ON f.foodnameID = fadv.id
+        <where>f.state = 0
+            <if test="buildingId!=null &amp;buildingId!='' ">
+                and s.buildingID=#{buildingId}
+            </if>
+            <if test="rest!=null &amp;rest!='' ">
+                and fadv.type=#{rest}
+            </if>
+        </where>
+    </select>
+    <select id="getFoodByTask" resultType="Food">
+        SELECT f.id,
+               fadv.type rest,
+               fadv.name foodname,
+               f.remark,
+               f.time,
+               f.repper  repperString,
+               f.state,
+               s.name,
+               b.name    buildingName,
+               r.number
+        FROM food f
+                 LEFT JOIN student s
+                           ON f.studentID = s.id
+                 LEFT JOIN building b
+                           ON b.id = s.buildingID
+                 LEFT JOIN room r
+                           ON s.roomID = r.id
+                 LEFT JOIN foodadv fadv
+                           ON f.foodnameID = fadv.id
+                 LEFT JOIN task_food tf ON tf.food_id = f.id
+        WHERE tf.task_id = #{taskId}
+    </select>
+    <select id="getDailyList" resultType="Dailyuse">
+        SELECT
+        d.id,
+        d.time,
+        d.state,
+        d.remark,
+        s.name sname,
+        s.phone,
+        b.name buildingName,
+        r.number,
+        dadv.name dname
+        FROM
+        dailyuse d
+        LEFT JOIN student s ON d.studentID = s.id
+        LEFT JOIN building b ON b.id=s.buildingID
+        LEFT JOIN room r ON s.roomID=r.id
+        LEFT JOIN dailyuseadv dadv ON d.dailyusenameID=dadv.id
+        <where>
+            d.state=0
+            <if test="buildingId!=null &amp; buildingId!=''">
+                and s.buildingID = #{buildingId}
+            </if>
+        </where>
+    </select>
+    <select id="getDailyByTask" resultType="Dailyuse">
+               SELECT
+        d.id,
+        d.time,
+        d.state,
+        d.remark,
+        s.name sname,
+        s.phone,
+        b.name buildingName,
+        r.number,
+        dadv.name dname
+        FROM
+        dailyuse d
+        LEFT JOIN student s ON d.studentID = s.id
+        LEFT JOIN building b ON b.id=s.buildingID
+        LEFT JOIN room r ON s.roomID=r.id
+        LEFT JOIN dailyuseadv dadv ON d.dailyusenameID=dadv.id
+                 LEFT JOIN task_daily td
+                           ON td.daily_id = d.id
+        WHERE td.task_id = #{taskId}
+    </select>
+</mapper>

@@ -1,5 +1,7 @@
 package com.ffyc.myfirstboot.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.sql.Timestamp;
 
 public class Appointment {
@@ -15,6 +17,35 @@ public class Appointment {
     private  Integer pageSize;
     private Integer studentID;
     private Integer psychologistID;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp starttime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp endtime;
+    private Boolean value;
+
+    public Boolean getValue() {
+        return value;
+    }
+
+    public void setValue(Boolean value) {
+        this.value = value;
+    }
+
+    public Timestamp getStarttime() {
+        return starttime;
+    }
+
+    public void setStarttime(Timestamp starttime) {
+        this.starttime = starttime;
+    }
+
+    public Timestamp getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(Timestamp endtime) {
+        this.endtime = endtime;
+    }
 
     public Integer getPsychologistID() {
         return psychologistID;

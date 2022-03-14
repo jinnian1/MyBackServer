@@ -5,7 +5,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 public class Dailyuse {
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date time;
     private Integer state;
     private Integer id;
@@ -16,8 +15,35 @@ public class Dailyuse {
     private String dname;
     private Integer pageSize;
     private Integer pageNum;
+    private String dailyusefile;
     private String remark;
     private String studentID;
+    private Integer data;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDailyusefile() {
+        return dailyusefile;
+    }
+
+    public void setDailyusefile(String dailyusefile) {
+        this.dailyusefile = dailyusefile;
+    }
+
+    public Integer getData() {
+        return data;
+    }
+
+    public void setData(Integer data) {
+        this.data = data;
+    }
 
     public String getStudentID() {
         return studentID;

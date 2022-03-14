@@ -6,6 +6,6 @@
         FROM student s
         LEFT JOIN building b ON s.buildingID=b.id
         LEFT JOIN room r ON s.roomID=r.id
-        WHERE s.sno=#{sno} AND s.password=#{password}
+        WHERE s.sno=#{sno} AND s.password=#{password} and s.state=1
     </select>
 </mapper>

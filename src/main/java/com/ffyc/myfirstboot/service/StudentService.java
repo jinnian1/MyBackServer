@@ -9,10 +9,12 @@ import com.github.pagehelper.PageInfo;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class StudentService {
     @Autowired
     StudentDao studentDao;
@@ -53,5 +55,9 @@ public class StudentService {
         //密码重置111111，加密
         String  password= DigestUtils.md5Hex("111111");
         studentDao.resetPassword(id,password);
+    }
+
+    public void delete(Integer id) {
+        studentDao.delete(id);
     }
 }

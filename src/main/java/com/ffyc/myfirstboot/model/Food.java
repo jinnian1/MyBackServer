@@ -1,21 +1,56 @@
 package com.ffyc.myfirstboot.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
 public class Food {
     private  Integer id;
+    private Integer studentID;
     private  Integer state;
     private  String name;
     private  String buildingName;
     private  Integer number;
-    private  Integer restaurant;
+    private  String restaurant;
     private  String foodname;
     private  String remark;
+    private String foodfile;
     private Date time;
-    private  Integer repper;
+    private String type;
+    private  String  repper;
     private Integer pageNum;
+    private String rest;
+    private String repperString;
+
+    public String getRepperString() {
+        return repperString;
+    }
+
+    public void setRepperString(String repperString) {
+        this.repperString = repperString;
+    }
+
+    public String getRest() {
+        return rest;
+    }
+
+    public void setRest(String rest) {
+        this.rest = rest;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getFoodfile() {
+        return foodfile;
+    }
+
+    public void setFoodfile(String foodfile) {
+        this.foodfile = foodfile;
+    }
 
     public Integer getStudentID() {
         return studentID;
@@ -25,7 +60,7 @@ public class Food {
         this.studentID = studentID;
     }
 
-    private Integer studentID;
+
 
     public String getBuildingName() {
         return buildingName;
@@ -68,6 +103,16 @@ public class Food {
     }
 
     private Integer pageSize;
+    private Integer data;
+
+    public Integer getData() {
+        return data;
+    }
+
+    public void setData(Integer data) {
+        this.data = data;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -84,11 +129,11 @@ public class Food {
         this.name = name;
     }
 
-    public Integer getRestaurant() {
+    public String getRestaurant() {
         return restaurant;
     }
 
-    public void setRestaurant(Integer restaurant) {
+    public void setRestaurant(String restaurant) {
         this.restaurant = restaurant;
     }
 
@@ -116,11 +161,11 @@ public class Food {
         this.time = time;
     }
 
-    public Integer getRepper() {
+    public String getRepper() {
         return repper;
     }
 
-    public void setRepper(Integer repper) {
+    public void setRepper(String repper) {
         this.repper = repper;
     }
 
@@ -133,13 +178,15 @@ public class Food {
                 ", name='" + name + '\'' +
                 ", buildingName='" + buildingName + '\'' +
                 ", number=" + number +
-                ", restaurant=" + restaurant +
+                ", restaurant='" + restaurant + '\'' +
                 ", foodname='" + foodname + '\'' +
                 ", remark='" + remark + '\'' +
                 ", time=" + time +
                 ", repper=" + repper +
                 ", pageNum=" + pageNum +
+                ", studentID=" + studentID +
                 ", pageSize=" + pageSize +
+                ", data=" + data +
                 '}';
     }
 }

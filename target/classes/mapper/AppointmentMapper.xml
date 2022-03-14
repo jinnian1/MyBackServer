@@ -2,11 +2,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ffyc.myfirstboot.dao.AppointmentDao">
     <insert id="appointment" parameterType="Appointment">
-        insert  into appointment(studentID,psychologistID,time)values(#{studentID},#{psychologistID},now())
+        insert  into appointment(studentID,psychologistID,time,starttime,endtime)
+        values(#{studentID},#{psychologistID},now(),#{starttime},#{endtime})
     </insert>
     <update id="updatesaveAppointment" parameterType="Appointment">
         update appointment set state=#{state} where id=#{id}
     </update>
+    <select id="checkNum" resultType="integer">
+        select count(*) from appointment where psychologistID=#{psychologistID} and state=0
+    </select>
     <delete id="delete">
         delete from appointment where id=#{id}
     </delete>
@@ -25,7 +29,7 @@
     </select>
 
     <select id="appointmentList" resultType="Appointment" parameterType="Appointment">
-        SELECT a.id,s.name sname,s.class sclass,sno,phone,p.name pname,a.time
+        SELECT a.id,s.name sname,s.class sclass,sno,phone,p.name pname,a.time,a.starttime,a.endtime
         FROM appointment a LEFT JOIN student  s ON a.studentID=s.id
         LEFT JOIN psychologist p ON a.psychologistID=p.id
         WHERE a.state=0
@@ -40,7 +44,7 @@
         </if>
     </select>
     <select id="appointmentListOver" resultType="com.ffyc.myfirstboot.model.Appointment">
-        SELECT a.id,s.name sname,s.class sclass,sno,phone,p.name pname,a.time
+        SELECT a.id,s.name sname,s.class sclass,sno,phone,p.name pname,a.time,a.starttime,a.endtime
         FROM appointment a LEFT JOIN student  s ON a.studentID=s.id
         LEFT JOIN psychologist p ON a.psychologistID=p.id
         WHERE a.state=1
@@ -56,5 +60,23 @@
     </select>
     <select id="check" resultType="integer">
         select count(*) from appointment where studentID=#{studentID} and state=0
+    </select>
+    <select id="searchTime" resultType="Appointment">
+        select starttime,endtime from  psychologist where id=#{psychologistID}
+    </select>
+    <select id="centersearch" resultType="com.ffyc.myfirstboot.model.Appointment" parameterType="Appointment">
+        SELECT p.name pname,a.starttime,a.endtime,a.time
+        FROM appointment a
+        LEFT JOIN psychologist p ON a.psychologistID=p.id
+        WHERE studentID=#{studentID}
+        <if test="pname!=''">
+            and p.name=#{pname}
+        </if>
+        <if test="value==false">
+            and a.state=0
+        </if>
+        <if test="value==true">
+            and a.state=1
+        </if>
     </select>
 </mapper>

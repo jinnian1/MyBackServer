@@ -24,4 +24,6 @@ public interface StudentDao {
     void updateStudentSave(Student student);
 
     void resetPassword(@Param("id")Integer id,@Param("mm")String password);
+
+    void delete(Integer id);
 }

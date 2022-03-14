@@ -5,6 +5,9 @@
         insert into student(name,sno,password,phone,sex,class,buildingID,roomID,college,email)
         values(#{name},#{sno},#{password},#{phone},#{sex},#{sclass},#{buildingID},#{roomID},#{college},#{email})
     </insert>
+    <delete id="delete">
+        update student set state=0 where id=#{id}
+    </delete>
 
     <select id="search" resultType="Student">
         SELECT s.id,s.name,s.sno,s.phone,s.sex,s.class sclass,b.name buildingName,r.number,s.college,s.email

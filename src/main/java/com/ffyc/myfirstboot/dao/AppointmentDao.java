@@ -20,4 +20,10 @@ public interface AppointmentDao {
     void appointment(Appointment appointment);
 
     Integer check(Integer studentID);
+
+    Appointment searchTime(Integer psychologistID);
+
+    List<Appointment> centersearch(Appointment appointment);
+
+    Integer checkNum(Integer psychologistID);
 }

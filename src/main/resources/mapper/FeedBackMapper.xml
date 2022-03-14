@@ -26,6 +26,9 @@
             <if test="studentName!='' &amp;studentName!=null">
                 studentID=find_student_id(#{studentName})
             </if>
+            <if test="studentID!='' &amp;studentID!=null">
+                and studentID=#{studentID}
+            </if>
             <if test="state!='' &amp; state!=null">
                 and state=#{state}
             </if>

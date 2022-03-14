@@ -2,11 +2,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ffyc.myfirstboot.dao.Dailyusedao">
     <insert id="dailyusesave">
-     INSERT INTO dailyuse(studentID,name,time,remark,state)VALUES(#{studentID},#{dname},now(),#{remark},0)
+     INSERT INTO dailyuse(studentID,dailyusenameID,time,remark,state)VALUES(#{studentID},#{id},now(),#{remark},1)
 
     </insert>
     <update id="updatedailyuse">
-        UPDATE dailyuse SET NAME=#{dname},remark=#{remark},state=#{state} where id=#{id}
+        UPDATE dailyuse SET state=#{data} where id=#{id}
     </update>
     <delete id="deletedailyuse">
         delete from dailyuse where id=#{id}
@@ -16,24 +16,25 @@
     </select>
 
     <select id="SelectDaily" parameterType="Dailyuse" resultType="com.ffyc.myfirstboot.model.Dailyuse">
-    SELECT
-      d.id,
-      d.time,
-      d.state,
-      d.remark,
-      s.name sname,
-      s.phone,
-      b.name buildingName,
-      r.number,
-      d.name dname
-    FROM
-      dailyuse d
-      LEFT JOIN student s ON d.studentID = s.id
+        SELECT
+        d.id,
+        d.time,
+        d.state,
+        d.remark,
+        s.name sname,
+        s.phone,
+        b.name buildingName,
+        r.number,
+        dadv.name dname
+        FROM
+        dailyuse d
+        LEFT JOIN student s ON d.studentID = s.id
         LEFT JOIN building b ON b.id=s.buildingID
-      LEFT JOIN room r ON s.roomID=r.id
-        <where>
+        LEFT JOIN room r ON s.roomID=r.id
+        LEFT JOIN dailyuseadv dadv ON d.dailyusenameID=dadv.id
+      where d.state=0
             <if test="sname!='' &amp; sname!=null">
-                s.name = #{sname}
+              and  s.name = #{sname}
             </if>
             <if test="buildingName!='' &amp; buildingName!=null">
               and  b.name = #{buildingName}
@@ -42,8 +43,37 @@
               and  r.number = #{number}
             </if>
 
-        </where>
     </select>
+
+    <select id="SelectDaily1" parameterType="Dailyuse" resultType="com.ffyc.myfirstboot.model.Dailyuse">          SELECT
+        d.id,
+        d.time,
+        d.state,
+        d.remark,
+        s.name sname,
+        s.phone,
+        b.name buildingName,
+        r.number,
+        dadv.name dname
+        FROM
+        dailyuse d
+        LEFT JOIN student s ON d.studentID = s.id
+        LEFT JOIN building b ON b.id=s.buildingID
+        LEFT JOIN room r ON s.roomID=r.id
+        LEFT JOIN dailyuseadv dadv ON d.dailyusenameID=dadv.id
+        where d.state=1
+            <if test="sname!='' &amp; sname!=null">
+              and  s.name = #{sname}
+            </if>
+            <if test="buildingName!='' &amp; buildingName!=null">
+                and  b.name = #{buildingName}
+            </if>
+            <if test="number!='' &amp; number!=null">
+                and  r.number = #{number}
+            </if>
+
+    </select>
+
     <select id="Selectdailyid" resultType="com.ffyc.myfirstboot.model.Dailyuseadv">
               SELECT
         da.name,
@@ -55,4 +85,60 @@
          LEFT JOIN student s ON d.studentID=s.id
          LEFT JOIN dailyuseadv da ON d.dailyuseID=da.id WHERE d.studentID=#{id}
     </select>
+
+
+
+
+
+
+
+
+
+    <resultMap id="shop1" type="Dailyuse">
+        <id column="id" property="id"></id>
+        <id column="picture" property="dailyusefile"></id>
+        <id column="name" property="dname"></id>
+        <id column="remark" property="remark"></id>
+        <id column="time" property="time"></id>
+        <id column="type" property="type"></id>
+
+    </resultMap>
+    <select id="shoppingcar1" resultMap="shop1">
+      SELECT d.id,
+             d.time,
+             d.remark,
+             dadv.name,
+             dadv.picture,
+             dadv.type
+              FROM dailyuse d
+               LEFT JOIN dailyuseadv dadv ON d.dailyusenameID=dadv.id WHERE d.studentID=#{studentID} AND d.state=0
+        <if test="dname!='' &amp; dname!=null">
+            AND  dadv.name =#{dname}
+        </if>
+        <if test="type!='' &amp; type!=null">
+            AND  dadv.type=#{type}
+                    </if>
+    </select>
+    <select id="shoppingcar6" resultMap="shop1">
+        SELECT d.id,
+        d.time,
+        d.remark,
+        dadv.name,
+        dadv.picture,
+        dadv.type
+        FROM dailyuse d
+        LEFT JOIN dailyuseadv dadv ON d.dailyusenameID=dadv.id WHERE d.studentID=#{studentID} AND d.state=1
+        <if test="dname!='' &amp; dname!=null">
+            AND  dadv.name =#{dname}
+        </if>
+        <if test="type!='' &amp; type!=null">
+            AND  dadv.type=#{type}
+        </if>
+    </select>
+
+    <delete id="deleteshopcar1">
+       DELETE FROM dailyuse WHERE id=#{id}
+    </delete>
 </mapper>
+
+

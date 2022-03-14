@@ -2,36 +2,41 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ffyc.myfirstboot.dao.Fooddao">
     <insert id="savefood">
-    INSERT INTO food(restaurant,studentID,foodname,remark,time,state,repper)VALUES(#{restaurant},#{studentID},#{foodname},#{remark},now(),0,#{repper})
+    INSERT INTO food(studentID,foodnameID,remark,time,state,repper)VALUES(#{studentID},#{id},#{remark},now(),0,#{repper})
     </insert>
 
     <update id="updatefood">
-UPDATE food SET foodname=#{foodname},remark=#{remark},state=#{state},repper=#{repper} where id=#{id}
+UPDATE food SET state=#{data} where id=#{id}
     </update>
     <delete id="delectfood">
+       DELETE FROM foodadv WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteshopcar">
        DELETE FROM food WHERE id=#{id}
     </delete>
 
     <select id="Selectfood" parameterType="food" resultType="com.ffyc.myfirstboot.model.Food">
-      SELECT
-      f.id,
-      f.restaurant,
-      f.foodname,
-      f.remark,
-      f.time,
-      f.repper,
-      f.state,
-      s.name,
-      b.name buildingName,
-      r.number
-      FROM
-      food f
-      LEFT JOIN student s ON f.studentID = s.id
-      LEFT JOIN building b ON b.id=s.buildingID
-      LEFT JOIN room r ON s.roomID=r.id
-        <where>
+        SELECT
+        f.id,
+        fadv.type restaurant,
+        fadv.name foodname,
+        f.remark,
+        f.time,
+        f.repper,
+        f.state,
+        s.name,
+        b.name buildingName,
+        r.number
+        FROM
+        food f
+        LEFT JOIN student s ON f.studentID = s.id
+        LEFT JOIN building b ON b.id=s.buildingID
+        LEFT JOIN room r ON s.roomID=r.id
+        LEFT JOIN foodadv fadv ON f.foodnameID=fadv.id
+        where f.state=0
             <if test="name!='' &amp; name!=null">
-                s.name = #{name}
+                and s.name = #{name}
             </if>
             <if test="buildingName!='' &amp; buildingName!=null">
                 and  b.name = #{buildingName}
@@ -39,13 +44,101 @@ UPDATE food SET foodname=#{foodname},remark=#{remark},state=#{state},repper=#{re
             <if test="number!='' &amp; number!=null">
                 and  r.number = #{number}
             </if>
+    </select>
 
-        </where>
+    <select id="Selectfood1" parameterType="food" resultType="com.ffyc.myfirstboot.model.Food">
+        SELECT
+        f.id,
+        fadv.type restaurant,
+        fadv.name foodname,
+        f.remark,
+        f.time,
+        f.repper,
+        f.state,
+        s.name,
+        b.name buildingName,
+        r.number
+        FROM
+        food f
+        LEFT JOIN student s ON f.studentID = s.id
+        LEFT JOIN building b ON b.id=s.buildingID
+        LEFT JOIN room r ON s.roomID=r.id
+        LEFT JOIN foodadv fadv ON f.foodnameID=fadv.id
+        where f.state=1
+        <if test="name!='' &amp; name!=null">
+            and s.name = #{name}
+        </if>
+        <if test="buildingName!='' &amp; buildingName!=null">
+            and  b.name = #{buildingName}
+        </if>
+        <if test="number!='' &amp; number!=null">
+            and  r.number = #{number}
+        </if>
     </select>
 
     <select id="Selectfoodid" resultType="com.ffyc.myfirstboot.model.Food">
                  SELECT
          *
          FROM food WHERE id=#{id}
+    </select>
+
+
+
+
+
+
+
+
+
+
+    <resultMap id="shop" type="Food">
+        <id column="id" property="id"></id>
+        <id column="remark" property="remark"></id>
+        <id column="name" property="foodname"></id>
+        <id column="file" property="foodfile"></id>
+        <id column="time" property="time"></id>
+        <id column="repper" property="repper"></id>
+        <id column="type" property="restaurant"></id>
+
+    </resultMap>
+    <select id="shoppingcar" resultMap="shop">
+              SELECT f.id,
+              f.remark,
+              f.time,
+              f.repper,
+              fadv.file,
+              fadv.name,
+              fadv.type
+              FROM food f
+               LEFT JOIN foodadv fadv ON f.foodnameID=fadv.id WHERE f.studentID=#{studentID} AND f.state=0
+        <if test="foodname!='' &amp; foodname!=null">
+            AND fadv.name = #{foodname}
+        </if>
+        <if test="repper!='' &amp; repper!=null">
+            AND  f.repper =#{repper}
+        </if>
+        <if test="type!='' &amp; type!=null">
+            AND  fadv.type =#{restaurant}
+        </if>
+    </select>
+    <select id="shoppingcar5" resultMap="shop">
+        SELECT f.id,
+        f.remark,
+        f.time,
+        f.repper,
+        fadv.file,
+        fadv.name,
+        fadv.type
+        FROM food f
+        LEFT JOIN foodadv fadv ON f.foodnameID=fadv.id WHERE f.studentID=#{studentID} AND f.state=1
+        <if test="foodname!='' &amp; foodname!=null">
+            AND fadv.name = #{foodname}
+        </if>
+        <if test="repper!='' &amp; repper!=null">
+            AND  f.repper =#{repper}
+        </if>
+        <if test="type!='' &amp; type!=null">
+            AND  fadv.type =#{restaurant}
+        </if>
     </select>
 </mapper>

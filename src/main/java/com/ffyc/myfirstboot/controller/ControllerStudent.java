@@ -82,5 +82,16 @@ public class ControllerStudent {
             return new CommonResult(300, "查找失败", null);
         }
     }
+    @RequestMapping(value ="/delete/{id}")
+    public CommonResult delete(@PathVariable("id")Integer id) {
+        try {
+            studentService.delete(id);
+            return new CommonResult(200, "删除成功",  null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResult(300, "删除失败", null);
+        }
+    }
+
 
 }

@@ -9,6 +9,8 @@ public class Dailyuseadv {
     private Integer pageSize;
     private Integer pageNum;
 
+
+
     public Integer getState() {
         return state;
     }

@@ -21,6 +21,13 @@ public class Foodservice {
         PageInfo<Food> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
+    public PageInfo<Food> Selectfood1(Food food) {
+        PageHelper.startPage(food.getPageNum(), food.getPageSize());
+        List<Food> list =  fooddao.Selectfood1(food);//分页查询后的数据
+        System.out.println(list);
+        PageInfo<Food> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
 
     public Food Selectfoodid(Integer id) {
         return fooddao.Selectfoodid(id);
@@ -37,4 +44,29 @@ public class Foodservice {
     public void delectfood(Integer id) {
         fooddao.delectfood(id);
     }
+
+    public PageInfo<Food> shoppingcar(Food food) {
+        PageHelper.startPage(food.getPageNum(), food.getPageSize());
+        List<Food> list =  fooddao.shoppingcar(food);//分页查询后的数据
+        System.out.println(list);
+        PageInfo<Food> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
+
+    public PageInfo<Food> shoppingcar5(Food food) {
+        PageHelper.startPage(food.getPageNum(), food.getPageSize());
+        List<Food> list =  fooddao.shoppingcar5(food);//分页查询后的数据
+        System.out.println(list);
+        PageInfo<Food> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
+
+
+
+
+
+    public void deleteshopcar(Integer id) {
+        fooddao.deleteshopcar(id);
+    }
+
 }

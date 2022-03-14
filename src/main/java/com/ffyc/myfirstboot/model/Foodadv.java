@@ -6,7 +6,16 @@ public class Foodadv {
     private  String file;
     private  String type;
     private Integer pageNum;
+    private String name;
     private Integer filenum;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Integer getFilenum() {
         return filenum;

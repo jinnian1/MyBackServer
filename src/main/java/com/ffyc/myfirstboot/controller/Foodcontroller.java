@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class Foodcontroller {
@@ -19,11 +21,19 @@ public class Foodcontroller {
 
     @RequestMapping(value ="/food")
     public CommonResult Food(@RequestBody Food food){
-        System.out.println(food.getPageNum());
-        System.out.println(food.getPageSize());
-        System.out.println(food);
         try {
             PageInfo<Food> foods=foodservice.Selectfood(food);
+            return new CommonResult(200, "查找成功",foods.getList(),foods.getTotal());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResult<>(300, "查找失败",  null);
+        }
+    }
+
+    @RequestMapping(value ="/Selectfood1")
+    public CommonResult Food1(@RequestBody Food food){
+        try {
+            PageInfo<Food> foods=foodservice.Selectfood1(food);
             return new CommonResult(200, "查找成功",foods.getList(),foods.getTotal());
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,28 +55,28 @@ public class Foodcontroller {
 
     @RequestMapping(value ="/updatefood")
     public CommonResult updatefood(@RequestBody Food food){
-        System.out.println(food);
         try {
             foodservice.updatefood(food);
-            return new CommonResult(200, "查找成功",null);
+            return new CommonResult(200, "更新成功",null);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResult<>(300, "查找失败",  null);
+            return new CommonResult<>(300, "更新失败",  null);
         }
     }
 
 
 
 
+
     @RequestMapping(value ="/foodsave")
     public CommonResult foodsave(@RequestBody Food food){
-        System.out.println(food);
         try {
+
             foodservice.savefood(food);
-            return new CommonResult(200, "查找成功",null);
+            return new CommonResult(200, "提交成功，在个人中心查看",null);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResult<>(300, "查找失败",  null);
+            return new CommonResult<>(300, "提交失败，服务器忙",  null);
         }
     }
 
@@ -78,7 +88,43 @@ public class Foodcontroller {
             return new CommonResult(200, "删除成功",null);
         } catch (Exception e) {
             e.printStackTrace();
+            return new CommonResult<>(300, "删除失败",  null);
+        }
+    }
+    @RequestMapping(value ="/deleteshopcar/{id}")
+    public CommonResult deleteshopcar(@PathVariable("id") Integer id){
+        try {
+            foodservice.deleteshopcar(id);
+            return new CommonResult(200, "取消订单成功",null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResult<>(300, "取消订单失败，服务器忙或订单已被接单",  null);
+        }
+    }
+
+
+
+
+    @RequestMapping(value ="/shoppingcar")
+    public CommonResult shoppingcar(@RequestBody Food food){
+        try {
+            PageInfo<Food> foods =foodservice.shoppingcar(food);
+            return new CommonResult(200, "查找成功",foods.getList(),foods.getTotal());
+        } catch (Exception e) {
+            e.printStackTrace();
             return new CommonResult<>(300, "查找失败",  null);
         }
     }
-}
+
+    @RequestMapping(value ="/shoppingcar5")
+    public CommonResult shoppingcar5(@RequestBody Food food){
+        try {
+            PageInfo<Food> foods =foodservice.shoppingcar5(food);
+            return new CommonResult(200, "查找成功",foods.getList(),foods.getTotal());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResult<>(300, "查找失败",  null);
+        }
+    }
+
+    }

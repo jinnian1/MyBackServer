@@ -96,5 +96,15 @@ public class ControllerExpress {
             return new CommonResult(300, "提交失败", null, null);
         }
     }
+    @RequestMapping("/centerSearch")
+    public CommonResult centerSearch(@RequestBody Express express) {
+        try {
+            PageInfo<Express> pageInfo = expressService.centerSearch(express);
+            return new CommonResult(200, "查找成功", pageInfo.getList(), pageInfo.getTotal());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResult(300, "提交失败", null, null);
+        }
+    }
 
 }

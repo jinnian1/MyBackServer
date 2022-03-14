@@ -1,3 +1,4 @@
+D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\CollegeController.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\PsyDao.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\BuildingController.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\ControllerPsychologist.java
@@ -20,9 +21,11 @@ D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\BackLogin
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\VolunteerDao.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\FrontLoginController.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\config\MultipartConfig.java
+D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\util\MarkdownUtil.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\model\Volunteer.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\Dailyuseadvdao.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\service\FrontLoginService.java
+D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\ControllerStudent.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\config\InterceptorConfig.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\service\PsychologistService.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\AcidTestDao.java
@@ -33,6 +36,7 @@ D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\Foodadvco
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\model\Psychologist.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\model\Building.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\util\StringUtil.java
+D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\StudentDao.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\model\Student.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\model\News.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\ExpressDao.java
@@ -40,7 +44,6 @@ D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\model\Dailyuse.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\service\RoomService.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\model\Menu.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\AppointmentDao.java
-D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\service\HelloService.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\service\AppointmentService.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\VolunteerController.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\NewsDao.java
@@ -58,6 +61,8 @@ D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\service\RoleService.
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\Dailyusecontroller.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\service\Dailyuseservice.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\BuildingDao.java
+D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\model\Task.java
+D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\service\CollegeService.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\service\NewsService.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\util\CommonResult.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\Fooddao.java
@@ -65,16 +70,21 @@ D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\model\AcidTest.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\model\Express.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\ControllerManage.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\config\RedisConfig.java
-D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\HelloDao.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\NewsController.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\ControllerExpress.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\service\AcidTestService.java
+D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\service\StudentService.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\RoleDao.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\FeedBackDao.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\Foodcontroller.java
+D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\CollegeDao.java
+D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\TaskController.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\service\AdminService.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\model\FeedBack.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\RoleController.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\controller\RoomController.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\util\LoginInterceptor.java
+D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\service\TaskService.java
+D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\dao\TaskDao.java
 D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\model\Manage.java
+D:\projects\MyBackServer\src\main\java\com\ffyc\myfirstboot\model\College.java

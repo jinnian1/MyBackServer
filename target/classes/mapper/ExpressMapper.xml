@@ -63,4 +63,20 @@
             and e.type=#{type}
         </if>
     </select>
+    <select id="centerSearch" resultType="Express" parameterType="Express">
+        select id,code,type,tip,arriveTime,time from  express
+        where studentID=#{studentID}
+        <if test="arriveTime!=null">
+            and Date(express.arriveTime)=#{arriveTime}
+        </if>
+        <if test="type!=''">
+            and express.type=#{type}
+        </if>
+        <if test="value==false">
+            and express.state=0
+        </if>
+        <if test="value==true">
+            and express.state=1
+        </if>
+    </select>
 </mapper>
