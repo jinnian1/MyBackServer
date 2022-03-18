@@ -21,4 +21,8 @@ public interface FeedBackDao {
     FeedBack getFeedBackById(@Param("feedBackId")Integer feedBackId);
 
     void updateState(FeedBack feedBack);
+
+    Integer getPercentOn();
+
+    Integer getPercentDown();
 }

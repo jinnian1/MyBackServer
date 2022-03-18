@@ -45,7 +45,6 @@ public class Dailyusecontroller {
 
     @RequestMapping(value ="/dailyuseid/{id}")
     public CommonResult Foodid(@PathVariable("id") Integer id){
-
         try {
             Dailyuseadv dailyuse=dailyuseservice.Selectdailyuseid(id);
             return new CommonResult(200, "查找成功",dailyuse);
@@ -111,10 +110,10 @@ public class Dailyusecontroller {
     public CommonResult delectfood(@PathVariable("id") Integer id){
         try {
             dailyuseservice.deletedailyuse(id);
-            return new CommonResult(200, "删除成功",null);
+            return new CommonResult(200, "删除订单成功",null);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResult<>(300, "删除失败",  null);
+            return new CommonResult<>(300, "删除订单失败，服务器忙或订单已被接单",  null);
         }
     }
 

@@ -43,8 +43,8 @@ public class ControllerPsychologist {
     @RequestMapping("/adddoctorpicture")
     public CommonResult<String> fileUpload(@RequestParam("fileName") CommonsMultipartFile infoImg) {
         CommonResult<String> commonResult = null;
-        //指定文件地址  localhost
-        File folder = new File("D:\\apache-tomcat-9.0.43\\webapps\\ROOT");
+        //指定文件地址
+        File folder = new File("/usr/local/apache-tomcat-9.0.37/webapps/ROOT/EPC/psychologist");
         if (!folder.exists()) {
             folder.mkdir();
         }

@@ -71,7 +71,6 @@ public class Foodcontroller {
     @RequestMapping(value ="/foodsave")
     public CommonResult foodsave(@RequestBody Food food){
         try {
-
             foodservice.savefood(food);
             return new CommonResult(200, "提交成功，在个人中心查看",null);
         } catch (Exception e) {
@@ -85,10 +84,10 @@ public class Foodcontroller {
 
         try {
             foodservice.delectfood(id);
-            return new CommonResult(200, "删除成功",null);
+            return new CommonResult(200, "删除订单成功",null);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResult<>(300, "删除失败",  null);
+            return new CommonResult<>(300, "删除订单失败，服务器忙或订单已被接单",  null);
         }
     }
     @RequestMapping(value ="/deleteshopcar/{id}")

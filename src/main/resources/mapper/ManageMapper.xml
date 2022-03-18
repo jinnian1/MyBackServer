@@ -57,7 +57,7 @@
     </resultMap>
 
     <insert id="save" parameterType="Manage" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO manage(account,PASSWORD,phone,sex,address,operate_time)VALUES(#{account},#{password},#{phone},#{sex},#{address},now())
+        INSERT INTO manage(account,PASSWORD,phone,sex,birthday,address,operate_time)VALUES(#{account},#{password},#{phone},#{sex},#{birthday},#{address},now())
     </insert>
     <insert id="saveManageRole">
         INSERT INTO manage_role VALUES(#{manageid},#{roleid})

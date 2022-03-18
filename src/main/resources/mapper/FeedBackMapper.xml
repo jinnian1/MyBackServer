@@ -4,13 +4,15 @@
 <mapper namespace="com.ffyc.myfirstboot.dao.FeedBackDao">
 
     <insert id="addFeedBack">
-        insert into feedback(studentID, title, info, state, time,operate_time)
-        values (#{studentID}, #{title},#{info}, 1, now(),now())
+        insert into feedback(studentID, title, info, state, time, operate_time)
+        values (#{studentID}, #{title}, #{info}, 1, now(), now())
     </insert>
     <update id="updateState" parameterType="feedBack">
         update feedback
-        set state=#{state},operator=#{operator},operate_time=now()
-        where id=#{id}
+        set state=#{state},
+            operator=#{operator},
+            operate_time=now()
+        where id = #{id}
     </update>
     <delete id="deleteFeedBack">
         delete
@@ -42,6 +44,15 @@
         select id, find_student_name(studentID) studentName, info, TIME
         from feedback
         where id=#{feedBackId}
+    </select>
+    <select id="getPercentOn" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM feedback
+        WHERE state = 3
+    </select>
+    <select id="getPercentDown" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM feedback
     </select>
 
 </mapper>

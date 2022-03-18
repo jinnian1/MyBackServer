@@ -44,10 +44,10 @@ public class ControllerExpress {
     public CommonResult expressDelete(@PathVariable("id") Integer id) {
         try {
             expressService.delete(id);
-            return new CommonResult(200, "删除成功", null, null);
+            return new CommonResult(200, "删除订单成功", null, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResult(300, "删除失败", null, null);
+            return new CommonResult(300, "删除订单失败，服务器忙或订单已被接单", null, null);
         }
     }
 
@@ -90,7 +90,7 @@ public class ControllerExpress {
     public CommonResult frontSubmit(@RequestBody Express express) {
         try {
             expressService.frontSubmit(express);
-            return new CommonResult(200, "提交成功", null, null);
+            return new CommonResult(200, "提交成功,在个人中心查看", null, null);
         } catch (Exception e) {
             e.printStackTrace();
             return new CommonResult(300, "提交失败", null, null);

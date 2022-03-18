@@ -24,7 +24,7 @@
         SELECT * FROM dailyuseadv where type='日用品区'
     </select>
     <select id="select4" resultType="com.ffyc.myfirstboot.model.Dailyuseadv">
-        SELECT * FROM dailyuseadv where type='瓜果区'
+        SELECT * FROM dailyuseadv where type='水果区'
     </select>
     <select id="Backdailyuseadv" parameterType="Dailyuseadv" resultType="com.ffyc.myfirstboot.model.Dailyuseadv">
          SELECT

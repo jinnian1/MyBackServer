@@ -59,4 +59,6 @@ public interface TaskDao {
     void updateTaskAccept(@Param("taskId")Integer taskId);
 
     void overTask(@Param("studentID")Integer studentID, @Param("taskId")Integer taskId);
+
+    Integer acceptTaskCheck(Integer taskId);
 }

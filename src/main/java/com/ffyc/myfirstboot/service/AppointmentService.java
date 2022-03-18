@@ -66,4 +66,16 @@ public class AppointmentService {
         PageInfo<Appointment> pageInfo = new PageInfo<>(list);
         return  pageInfo;
     }
+
+    public int studeleteAppointment(Integer id) {
+        int check=appointmentDao.studelcheck(id);
+        if(check==1){
+            //该咨询已经进行,无法删除
+            return 0;
+        }else{
+            //删除该场咨询
+            appointmentDao.delete(id);
+            return 1;
+        }
+    }
 }

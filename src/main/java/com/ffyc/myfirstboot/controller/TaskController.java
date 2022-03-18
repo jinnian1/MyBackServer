@@ -183,15 +183,18 @@ public class TaskController {
 
     @RequestMapping("acceptTask/{studentID}/{taskId}")
     public CommonResult acceptTask(@PathVariable("studentID") Integer studentID,@PathVariable("taskId") Integer taskId) {
-        CommonResult commonResult = null;
         try {
-            taskService.acceptTask(studentID,taskId);
-            commonResult = new CommonResult<>(200, "操作成功", null);
+            CommonResult commonResult = null;
+           Integer check=   taskService.acceptTask(studentID,taskId);
+           if(check.equals(1)){
+               return new CommonResult<>(200, "接收成功,在个人中心查看", null);
+           }else{
+               return new CommonResult<>(201, "接收失败,该任务已被其他志愿者接收或已被取消", null);
+           }
         } catch (Exception e) {
             e.printStackTrace();
-            commonResult = new CommonResult<>(500, "服务器忙", null);
+            return new CommonResult<>(500, "服务器忙", null);
         }
-        return commonResult;
     }
 
     @RequestMapping("deleteAccept/{taskId}")

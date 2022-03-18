@@ -258,4 +258,7 @@
                            ON td.daily_id = d.id
         WHERE td.task_id = #{taskId}
     </select>
+    <select id="acceptTaskCheck" resultType="Integer">
+        select state from task where id=#{taskId}
+    </select>
 </mapper>

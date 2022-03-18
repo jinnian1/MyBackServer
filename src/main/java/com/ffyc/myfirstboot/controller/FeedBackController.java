@@ -110,7 +110,6 @@ public class FeedBackController {
     @RequestMapping("addFeedBack")
     public CommonResult addNews( @RequestBody FeedBack feedBack) {
         CommonResult commonResult = null;
-        System.out.println("getStudentID"+feedBack.getStudentID());
         feedBackService.addFeedBack(feedBack);
         try {
             commonResult = new CommonResult<>(200, "保存成功", null);
@@ -120,4 +119,18 @@ public class FeedBackController {
         }
         return commonResult;
     }
+
+    @RequestMapping("getPercent")
+    public CommonResult getPercent() {
+        CommonResult commonResult = null;
+        Integer percent = feedBackService.getPercent();
+        try {
+            commonResult = new CommonResult<>(200, "查找成功", percent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            commonResult = new CommonResult<>(500, "服务器忙", null);
+        }
+        return commonResult;
+    }
+
 }

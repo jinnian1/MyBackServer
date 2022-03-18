@@ -143,9 +143,15 @@ public class TaskService {
         return taskDao.getDailyByTask(taskId);
     }
 
-    public void acceptTask(Integer studentID, Integer taskId) {
-        //修改该任务状态，添加学生
-        taskDao.acceptTask(studentID,taskId);
+    public  synchronized  Integer acceptTask(Integer studentID, Integer taskId) {
+        Integer check=taskDao.acceptTaskCheck(taskId);
+        if(check.equals(1)){
+            //修改该任务状态，添加学生
+            taskDao.acceptTask(studentID,taskId);
+            return  1;
+        }else{
+           return  0;
+        }
     }
 
     public void deleteAccept(Integer taskId) {

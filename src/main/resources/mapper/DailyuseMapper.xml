@@ -2,7 +2,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ffyc.myfirstboot.dao.Dailyusedao">
     <insert id="dailyusesave">
-     INSERT INTO dailyuse(studentID,dailyusenameID,time,remark,state)VALUES(#{studentID},#{id},now(),#{remark},1)
+     INSERT INTO dailyuse(studentID,dailyusenameID,time,remark,state)VALUES(#{studentID},#{id},now(),#{remark},0)
 
     </insert>
     <update id="updatedailyuse">

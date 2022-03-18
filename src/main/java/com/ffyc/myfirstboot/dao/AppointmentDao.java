@@ -26,4 +26,6 @@ public interface AppointmentDao {
     List<Appointment> centersearch(Appointment appointment);
 
     Integer checkNum(Integer psychologistID);
+
+    int studelcheck(Integer id);
 }

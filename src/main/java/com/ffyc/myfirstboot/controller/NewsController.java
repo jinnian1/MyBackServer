@@ -32,7 +32,7 @@ public class NewsController {
         System.out.println("文章内上传图片");
         CommonResult<String> commonResult = null;
         //指定文件地址  localhost
-        File folder = new File("D:\\Program Files\\apache-tomcat-9.0.43(img)\\webapps\\ROOT\\EPC\\news");
+        File folder = new File("/usr/local/apache-tomcat-9.0.37/webapps/ROOT/EPC/news");
         if (!folder.exists()) {
             folder.mkdir();
         }

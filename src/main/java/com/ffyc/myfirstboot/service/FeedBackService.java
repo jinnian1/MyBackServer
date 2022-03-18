@@ -61,4 +61,10 @@ public class FeedBackService {
     public void updateState(FeedBack feedBack) {
         feedBackDao.updateState(feedBack);
     }
+
+    public Integer getPercent() {
+        Integer percentOn = feedBackDao.getPercentOn();
+        Integer percentDown = feedBackDao.getPercentDown();
+        return percentOn * 100 / percentDown;
+    }
 }

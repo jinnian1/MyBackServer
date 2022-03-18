@@ -33,7 +33,7 @@
     </update>
 
     <select id="updateRole" resultMap="updateRoleMap">
-         SELECT r.id,r.name,r.mark,rm.menu_id menuID FROM ROLE r LEFT JOIN role_menu rm ON r.id=rm.role_id WHERE r.id=#{id}
+         SELECT r.id,r.name,r.mark,rm.menu_id menuID FROM role r LEFT JOIN role_menu rm ON r.id=rm.role_id WHERE r.id=#{id}
     </select>
 
     <delete id="delete" parameterType="Role">
@@ -54,7 +54,7 @@
     </select>
     <select id="roleList" resultMap="roleMap" parameterType="Role">
         SELECT r.id,r.name,mark,m.account operatePersonString,r.operate_time
-        FROM ROLE r
+        FROM role r
         LEFT JOIN manage m ON r.operate_person =m.id
        <if test="name!=''">
                 and r.name=#{name}

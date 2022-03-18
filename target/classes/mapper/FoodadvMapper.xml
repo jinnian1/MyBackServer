@@ -28,7 +28,7 @@
         select * from foodadv where type='厚朴餐厅'
     </select>
     <select id="foodadv2" resultType="com.ffyc.myfirstboot.model.Foodadv">
-        select * from foodadv where type='其他餐厅'
+        select * from foodadv where type='汉韵餐厅'
     </select>
     <select id="findTypeName" resultType="java.lang.String">
          select type

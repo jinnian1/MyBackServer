@@ -68,13 +68,10 @@ public class Foodadvcontroller {
     @RequestMapping(value ="Menufigure")
     public CommonResult<String> fileUpload(@RequestParam("adminFile") CommonsMultipartFile adminFile) {
         CommonResult<String> commonResult = null;
-        //指定文件地址  localhost
-        File folder = new File("D:\\apache-tomcat-9.0.431\\webapps\\ROOT\\EPC\\food");
         //linux地址
-        //File folder = new File("/usr/local/apache-tomcat-9.0.37-img/webapps/ROOT/springboot/admin/" + adminId);
+        File folder = new File("/usr/local/apache-tomcat-9.0.37/webapps/ROOT/EPC/food");
         if (!folder.exists()) {
             boolean mkdir = folder.mkdir();
-            System.out.println("文件创建:" + mkdir);
         }
         //生成新文件
         String oldFileName = adminFile.getOriginalFilename();
@@ -83,7 +80,7 @@ public class Foodadvcontroller {
         try {
             //只上传问价,不存数据库
             adminFile.transferTo(file);
-            String imgUrl = "http://127.0.0.1:8000/EPC/food/" + newFileName;
+            String imgUrl = "http://124.222.0.129:8080/EPC/food/" + newFileName;
             //String imgUrl = "http://192.168.32.128:8000/springboot/admin/" + adminId + "/" + newFileName;
             commonResult = new CommonResult<>(200, "上传成功,保存后更换", imgUrl);
         } catch (IOException e) {

@@ -96,4 +96,18 @@ public class ControllerAppointment {
             return new CommonResult(300, "查找失败", null);
         }
     }
+    @RequestMapping("/studeleteAppointment/{id}")
+    public CommonResult studeleteAppointment(@PathVariable("id")Integer id){
+        try {
+            int check=appointmentService.studeleteAppointment(id);
+            if(check==1) {
+                return new CommonResult(200, "取消预约成功", null);
+            }else{
+                return new CommonResult<Psychologist>(201, "取消预约失败,该预约已经开始或者咨询已经结束", null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResult<Psychologist>(300, "取消预约失败,服务器忙", null);
+        }
+    }
 }
