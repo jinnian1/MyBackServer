@@ -3,44 +3,58 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ffyc.myfirstboot.dao.RoomDao">
     <insert id="addRoom" parameterType="room">
-        insert into room(number, buildingID, height, operator, operate_time)
-        values (#{number}, #{buildingID}, #{height}, #{operator}, now())
+        insert into room(number, buildingId, height, operate_time)
+        values (#{number}, #{buildingId}, #{height}, now())
     </insert>
     <update id="updateRoom" parameterType="room">
         update room
         set number =#{number},
-            buildingID=#{buildingID},
+            buildingId=#{buildingId},
             height=#{height},
-            operator=#{operator},
+            residu_electric=#{residueElectric},
             operate_time=now()
             where id=#{id}
     </update>
-    <update id="deleteRoom">
-        update room set state=0
-        where id = #{roomId}
+    <update id="billingInfoSave">
+          UPDATE room SET residue_electric=residue_electric+#{residueElectric}  WHERE number=#{room}
     </update>
+    <delete id="deleteRoom">
+                delete
+        from room
+        where id = #{roomId};
+    </delete>
+
     <select id="getRoomById" resultType="Room">
         SELECT *
         FROM room
         WHERE id = #{roomId} and room.state=1
     </select>
+
+
+
+
     <select id="getRoomList" parameterType="room" resultType="Room">
-        SELECT id,number,find_building_name(buildingID) buildingName,height,find_manage_account(operator)
-        operatorAccount,operate_time FROM room r where r.state=1
-            <if test="buildingID!=''&amp; buildingID!=null">
-                buildingID=#{buildingID}
-            </if>
-            <if test="height!='' &amp; height!=null">
-                and height=#{height}
-            </if>
-            <if test="number!=''">
-                and number=#{number}
-            </if>
+        SELECT room.residue_electric,room.id,building.name as buildingName,room.height,room.number,room.operate_time FROM room
+        LEFT JOIN building ON building.id=room.buildingId
+        <where>
+            <if test="buildingName!=''">building.name=#{buildingName} </if>
+            <if test="number!=''"> and room.number=#{number}</if>
+            <if test="height!='' &amp; height!=null"> and room.height=#{height}</if>
+        </where>
     </select>
-    <select id="getFloorsByBuildingID" resultType="java.lang.Integer">
-        select height from building where id = #{buildingID}
+
+
+
+
+
+    <select id="getFloorsBybuildingId" resultType="java.lang.Integer">
+        select height from building where id = #{buildingId}
     </select>
     <select id="getregiestRoom" resultType="com.ffyc.myfirstboot.model.Room">
-        SELECT * FROM room WHERE buildingID=#{buildingID} AND height=#{height} and room.state=1
+        SELECT * FROM room WHERE buildingId=#{buildingId} AND height=#{height}
+    </select>
+    <select id="getStudentRoom" resultType="com.ffyc.myfirstboot.model.Room">
+             SELECT number FROM student
+      LEFT JOIN room ON room.id=student.roomId  WHERE student.id=#{studentID}
     </select>
 </mapper>

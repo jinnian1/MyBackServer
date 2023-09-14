@@ -1,5 +1,6 @@
 package com.ffyc.myfirstboot.dao;
 
+import com.ffyc.myfirstboot.model.Electricity;
 import com.ffyc.myfirstboot.model.Room;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
@@ -23,7 +24,11 @@ public interface RoomDao {
 
     List<Room> getRoomList(Room room);
 
-    Integer getFloorsByBuildingID(@Param("buildingID") Integer buildingID);
+    Integer getFloorsBybuildingId(@Param("buildingId") Integer buildingId);
 
-    List<Room> getregiestRoom(@Param("buildingID")Integer buildingID,@Param("height")Integer height);
+    List<Room> getregiestRoom(@Param("buildingId")Integer buildingId,@Param("height")Integer height);
+
+    Room getStudentRoom(Integer studentID);
+
+    void billingInfoSave(Electricity electricity);
 }

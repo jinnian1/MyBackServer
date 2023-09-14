@@ -30,4 +30,19 @@ public class AdminService {
         manage.setType(type);
         return   manageDao.menuList(manage);
     }
+
+    public void register(Manage manage) {
+        String  password= DigestUtils.md5Hex(manage.getPassword());
+        manage.setPassword(password);
+        manageDao.register(manage);
+
+    }
+
+    public Manage getManageInfo(Integer id) {
+       return manageDao.getManageInfo(id);
+    }
+
+    public void updateManageInfo(Manage manage) {
+        manageDao.updateManageInfo(manage);
+    }
 }

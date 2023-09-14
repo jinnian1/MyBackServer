@@ -22,12 +22,9 @@ public class BuildingController {
     BuildingService buildingService;
 
     @RequestMapping("addBuilding")
-    public CommonResult addBuilding(@RequestHeader("token") String token, @RequestBody Building building) {
+    public CommonResult addBuilding(@RequestBody Building building) {
         CommonResult commonResult = null;
         //拿到管理员id
-        DecodedJWT tokenInfo = TokenUtil.getTokenInfo(token);
-        Integer manageId = tokenInfo.getClaim("id").asInt();
-        building.setOperator(manageId);
         buildingService.addBuilding(building);
         try {
             commonResult = new CommonResult<>(200, "保存成功", null);
@@ -41,13 +38,14 @@ public class BuildingController {
     @RequestMapping("deleteBuilding/{buildingId}")
     public CommonResult deleteBuilding(@PathVariable("buildingId") Integer buildingId) {
         CommonResult commonResult = null;
-        buildingService.deleteBuilding(buildingId);
-        try {
-            commonResult = new CommonResult<>(200, "删除成功", null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            commonResult = new CommonResult<>(500, "服务器忙", null);
-        }
+
+            buildingService.deleteBuilding(buildingId);
+            try {
+                commonResult = new CommonResult<>(200, "删除成功", null);
+            } catch (Exception e) {
+                e.printStackTrace();
+                commonResult = new CommonResult<>(500, "服务器忙", null);
+            }
         return commonResult;
     }
 
@@ -65,7 +63,7 @@ public class BuildingController {
     }
 
     @RequestMapping("updateBuilding")
-    public CommonResult  updateBuilding(@RequestHeader("token") String token,@RequestBody Building building) {
+    public CommonResult updateBuilding(@RequestHeader("token") String token, @RequestBody Building building) {
         CommonResult commonResult = null;
         DecodedJWT tokenInfo = TokenUtil.getTokenInfo(token);
         Integer manageId = tokenInfo.getClaim("id").asInt();
@@ -81,9 +79,10 @@ public class BuildingController {
     }
 
     @RequestMapping("getBuildingList")
-    public CommonResult<List<Building>> getBuildingList(@RequestBody Building building){
+    public CommonResult<List<Building>> getBuildingList(@RequestBody Building building) {
         CommonResult commonResult = null;
         try {
+            System.out.println("何文强");
             PageInfo<Building> buildingPageInfo = buildingService.getBuildingList(building);
             commonResult = new CommonResult<>(200, "查询成功", buildingPageInfo.getList(), buildingPageInfo.getTotal());
         } catch (Exception e) {

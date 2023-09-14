@@ -14,11 +14,31 @@ public class Student {
     private  String college;
     private String buildingName;
     private  Integer number;
-    private Integer roomID;
+    private Integer roomId;
     private Integer pageNum;
     private Integer pageSize;
-    private  Integer buildingID;
+    private  Integer buildingId;
     private  Integer height;
+    private Integer verifycode;
+    private float residueElectric;
+
+
+
+    public float getResidueElectric() {
+        return residueElectric;
+    }
+
+    public void setResidueElectric(float residueElectric) {
+        this.residueElectric = residueElectric;
+    }
+
+    public Integer getVerifycode() {
+        return verifycode;
+    }
+
+    public void setVerifycode(Integer verifycode) {
+        this.verifycode = verifycode;
+    }
 
     public Integer getHeight() {
         return height;
@@ -36,20 +56,20 @@ public class Student {
         this.password1 = password1;
     }
 
-    public Integer getRoomID() {
-        return roomID;
+    public Integer getroomId() {
+        return roomId;
     }
 
-    public void setRoomID(Integer roomID) {
-        this.roomID = roomID;
+    public void setroomId(Integer roomId) {
+        this.roomId = roomId;
     }
 
-    public Integer getBuildingID() {
-        return buildingID;
+    public Integer getBuildingId() {
+        return buildingId;
     }
 
-    public void setBuildingID(Integer buildingID) {
-        this.buildingID = buildingID;
+    public void setBuildingId(Integer buildingId) {
+        this.buildingId = buildingId;
     }
 
     public Integer getPageNum() {
@@ -162,5 +182,30 @@ public class Student {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", password1='" + password1 + '\'' +
+                ", sno='" + sno + '\'' +
+                ", phone='" + phone + '\'' +
+                ", sex='" + sex + '\'' +
+                ", sclass='" + sclass + '\'' +
+                ", email='" + email + '\'' +
+                ", icon='" + icon + '\'' +
+                ", college='" + college + '\'' +
+                ", buildingName='" + buildingName + '\'' +
+                ", number=" + number +
+                ", roomId=" + roomId +
+                ", pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                ", buildingID=" + buildingId +
+                ", height=" + height +
+                ", verifycode=" + verifycode +
+                '}';
     }
 }

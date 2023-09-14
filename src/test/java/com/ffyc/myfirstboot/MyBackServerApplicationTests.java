@@ -25,6 +25,7 @@ class MyBackServerApplicationTests {
 		valueOperations.set("user1",user);
 		valueOperations.set("user2",user,10*1000, TimeUnit.MILLISECONDS);
 		System.out.println(redisTemplate.hasKey("key"));
+		redisTemplate.delete("user2");
 
 	}
 

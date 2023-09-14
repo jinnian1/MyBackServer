@@ -15,29 +15,39 @@ public class Room {
     private Integer id;
     private String number;
     private Integer height;
-    private Integer buildingID;
+    private Integer buildingId;
     private String buildingName;
     private Integer operator;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date operateTime;
+    private String operateTime;
+    private String state;
     private Integer pageNum;
     private Integer pageSize;
     private String operatorAccount;
+    private float residueElectric;
+    private float aggregateAmount;
 
-    @Override
-    public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", number='" + number + '\'' +
-                ", height=" + height +
-                ", buildingID=" + buildingID +
-                ", buildingName='" + buildingName + '\'' +
-                ", operator=" + operator +
-                ", operateTime=" + operateTime +
-                ", pageNum=" + pageNum +
-                ", pageSize=" + pageSize +
-                ", operatorAccount='" + operatorAccount + '\'' +
-                '}';
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public float getAggregateAmount() {
+        return aggregateAmount;
+    }
+
+    public void setAggregateAmount(float aggregateAmount) {
+        this.aggregateAmount = aggregateAmount;
+    }
+
+    public float getResidueElectric() {
+        return residueElectric;
+    }
+
+    public void setResidueElectric(float residueElectric) {
+        this.residueElectric = residueElectric;
     }
 
     public String getBuildingName() {
@@ -79,12 +89,12 @@ public class Room {
         this.height = height;
     }
 
-    public Integer getBuildingID() {
-        return buildingID;
+    public Integer getBuildingId() {
+        return buildingId;
     }
 
-    public void setBuildingID(Integer buildingID) {
-        this.buildingID = buildingID;
+    public void setBuildingId(Integer buildingId) {
+        this.buildingId = buildingId;
     }
 
     public Integer getOperator() {
@@ -95,11 +105,11 @@ public class Room {
         this.operator = operator;
     }
 
-    public Date getOperateTime() {
+    public String getOperateTime() {
         return operateTime;
     }
 
-    public void setOperateTime(Date operateTime) {
+    public void setOperateTime(String operateTime) {
         this.operateTime = operateTime;
     }
 
@@ -117,5 +127,21 @@ public class Room {
 
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", number='" + number + '\'' +
+                ", height=" + height +
+                ", buildingId=" + buildingId +
+                ", buildingName='" + buildingName + '\'' +
+                ", operator=" + operator +
+                ", operateTime='" + operateTime + '\'' +
+                ", pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                ", operatorAccount='" + operatorAccount + '\'' +
+                '}';
     }
 }

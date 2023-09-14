@@ -2,27 +2,28 @@ package com.ffyc.myfirstboot.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 
 public class Manage {
     private  String token;
     private String account;
     private  String password;
-    private  String newFileName;
-    public  String oldFileName;
+    private  String name;
     private  Integer id;
     private  Integer type;
     private List<Role> roleList;
     private  String phone;
-    private String sex;
     private  String address;
+    private String sex;
     private String typeString;
     private Integer[] roleId;
     private Timestamp operateTime;
     private  Integer pageNum;
     private  Integer pageSize;
     private Date birthday;
-    private String password1;  //修改密码时的原密码
+    private String password1;  //修改密码时的原密
+
 
     public String getPassword1() {
         return password1;
@@ -88,20 +89,12 @@ public class Manage {
         this.password = password;
     }
 
-    public String getNewFileName() {
-        return newFileName;
+    public String getName() {
+        return name;
     }
 
-    public void setNewFileName(String newFileName) {
-        this.newFileName = newFileName;
-    }
-
-    public String getOldFileName() {
-        return oldFileName;
-    }
-
-    public void setOldFileName(String oldFileName) {
-        this.oldFileName = oldFileName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getId() {
@@ -166,5 +159,28 @@ public class Manage {
 
     public void setRoleId(Integer[] roleId) {
         this.roleId = roleId;
+    }
+
+    @Override
+    public String toString() {
+        return "Manage{" +
+                "token='" + token + '\'' +
+                ", account='" + account + '\'' +
+                ", password='" + password + '\'' +
+                ", newFileName='" + name + '\'' +
+                ", id=" + id +
+                ", type=" + type +
+                ", roleList=" + roleList +
+                ", phone='" + phone + '\'' +
+                ", sex='" + sex + '\'' +
+                ", address='" + address + '\'' +
+                ", typeString='" + typeString + '\'' +
+                ", roleId=" + Arrays.toString(roleId) +
+                ", operateTime=" + operateTime +
+                ", pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                ", birthday=" + birthday +
+                ", password1='" + password1 + '\'' +
+                '}';
     }
 }

@@ -2,10 +2,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ffyc.myfirstboot.dao.FrontLoginDao">
     <select id="login" parameterType="Student" resultType="Student">
-        SELECT s.id,s.name,s.sno,s.phone,s.sex,class sclass,b.name building,r.number room,s.college,s.icon,s.email
+        SELECT s.id,s.name,s.sno,s.phone,s.sex,class sclass,b.name building,r.number room,s.college,s.email
         FROM student s
         LEFT JOIN building b ON s.buildingID=b.id
         LEFT JOIN room r ON s.roomID=r.id
-        WHERE s.sno=#{sno} AND s.password=#{password} and s.state=1
+        WHERE s.sno=#{sno} AND s.password=#{password}
     </select>
 </mapper>

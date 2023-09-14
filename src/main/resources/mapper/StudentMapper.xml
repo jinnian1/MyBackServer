@@ -2,18 +2,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ffyc.myfirstboot.dao.StudentDao">
     <insert id="save">
-        insert into student(name,sno,password,phone,sex,class,buildingID,roomID,college,email)
-        values(#{name},#{sno},#{password},#{phone},#{sex},#{sclass},#{buildingID},#{roomID},#{college},#{email})
+        insert into student(name,sno,password,phone,sex,class,buildingId,roomId,college,email)
+        values(#{name},#{sno},#{password},#{phone},#{sex},#{sclass},#{buildingId},#{roomId},#{college},#{email})
     </insert>
+
     <delete id="delete">
-        update student set state=0 where id=#{id}
+        delete from student where id=#{id}
     </delete>
 
     <select id="search" resultType="Student">
         SELECT s.id,s.name,s.sno,s.phone,s.sex,s.class sclass,b.name buildingName,r.number,s.college,s.email
-        FROM student s LEFT JOIN building b ON s.buildingID=b.id
-        LEFT JOIN room r ON s.roomID=r.id
-        where s.state=1
+        FROM student s LEFT JOIN building b ON s.buildingId=b.id
+        LEFT JOIN room r ON s.roomId=r.id
         <if test="college!=''">
             and s.college=#{college}
         </if>
@@ -32,14 +32,44 @@
     </update>
     <update id="updateStudentSave" parameterType="Student">
          update student set name=#{name},sno=#{sno},phone=#{phone},
-         sex=#{sex},class=#{sclass},buildingID=#{buildingID},roomID=#{roomID},college=#{college},email=#{email}
+         sex=#{sex},class=#{sclass},buildingId=#{buildingId},roomId=#{roomId},college=#{college},email=#{email}
         where id=#{id}
     </update>
     <update id="resetPassword">
         update student set password=#{mm} where id=#{id}
     </update>
+    <update id="wjCode" parameterType="Student">
+        update student set password=#{password} where email=#{email}
+    </update>
+    <update id="updateMyInfo">
+UPDATE student SET NAME=#{name},class=#{sclass},sex=#{sex},college=#{college},phone=#{phone},email=#{email} where id=#{id}
+    </update>
     <select id="updateStudent" resultType="Student">
-          select s.id,s.name,s.sno,s.phone,s.sex,s.class sclass,s.buildingID,s.roomID,room.height,s.college,s.email from student s
-         left join room on room.id=s.roomID where s.id=#{id}
+          select s.id,s.name,s.sno,s.phone,s.sex,s.class sclass,s.buildingId,s.roomId,room.height,s.college,s.email from student s
+         left join room on room.id=s.roomId where s.id=#{id}
+    </select>
+    <select id="emailCheck" resultType="java.lang.Integer">
+        select count(*) from student where email=#{email}
+    </select>
+    <select id="getStudent" resultType="com.ffyc.myfirstboot.model.Student">
+  SELECT student.id,student.name,room.residue_electric,student.phone,student.buildingId,student.roomId,building.name as buildingName,building.height,room.number FROM student
+  LEFT JOIN building ON building.id=student.buildingId
+  LEFT JOIN room ON student.roomId=room.id
+  WHERE student.id=#{studentID}
+    </select>
+    <select id="getStudentList" resultType="com.ffyc.myfirstboot.model.Student">
+                SELECT student.id,student.sno,student.name,student.phone,student.sex,student.class as sclass,building.name as buildingName,room.number,student.email,student.college FROM student
+                 LEFT JOIN building ON building.id=student.buildingId
+                 LEFT JOIN room ON room.id=student.roomId
+                 <where>
+                     <if test="name!=''">student.name=#{name} </if>
+                     <if test="sclass!=''">and student.class=#{sclass}</if>
+                     <if test="college!='' &amp; college!=null">and student.college=#{college}</if>
+                 </where>
+    </select>
+    <select id="getMyInfo" resultType="com.ffyc.myfirstboot.model.Student">
+                     SELECT student.sno,student.name,student.sex,student.class as sclass,student.college,building.name as buildingName,room.number,room.height,student.phone,student.email FROM student
+               LEFT JOIN building ON student.buildingId=building.id
+               LEFT JOIN room ON student.roomId=room.id WHERE student.id=#{studentID}
     </select>
 </mapper>

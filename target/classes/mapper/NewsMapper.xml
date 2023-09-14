@@ -3,9 +3,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ffyc.myfirstboot.dao.NewsDao">
 
-    <insert id="addNews" parameterType="news">
+    <insert id="addNews" parameterType="news" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into new (title, summary, info, output_time, picture, operator, operate_time)
         values (#{title}, #{summary}, #{info}, now(), #{picture}, #{operator}, now());
+    </insert>
+    <insert id="saveNotice">
+ INSERT INTO notice(title) VALUE  (#{title})
+     </insert>
+    <insert id="addHorseLamp">
+ INSERT INTO horselamp(title,FILE) VALUES  (#{title},#{file})
     </insert>
     <update id="updateNews" parameterType="news">
         update new
@@ -17,10 +23,36 @@
             operate_time=now()
         where id = #{id}
     </update>
+    <update id="updateNoticeSave">
+        UPDATE notice SET title=#{title} where id=#{id}
+    </update>
+    <update id="saveUpdateHorseLamp">
+         UPDATE horselamp SET title=#{title},file=#{file} where id=#{id}
+    </update>
+
+
+    <select id="updateNotice" resultType="HorseLamp">
+SELECT * FROM notice WHERE id=#{id}
+    </select>
     <delete id="deleteNews">
         delete
         from new
         where id = #{newsId};
+    </delete>
+    <delete id="deleteNotice">
+             delete
+        from notice
+        where id = #{id};
+    </delete>
+    <delete id="deleteFeedBack">
+                     delete
+        from feedback
+        where id = #{id};
+    </delete>
+    <delete id="deleteHorseLamp">
+                        delete
+        from horselamp
+        where id = #{id};
     </delete>
     <select id="getNewsById" resultType="News">
         select id, title, summary, info, picture
@@ -45,16 +77,31 @@
     <select id="getMainLeftNewsList" resultType="News">
         select id, title, summary, output_time
         from new
-        order by output_time desc limit 5
+        order by output_time desc limit 8
     </select>
     <select id="getMainRightNewsList" resultType="News">
         select id, title, summary, output_time
         from new
-        order by output_time desc limit 5,3
+        order by output_time desc limit 8,4
     </select>
     <select id="getNewsShowById" resultType="News">
         select id, title, info, outPut_time
         from new
         where id = #{newsId}
     </select>
+    <select id="getHorseLamp" resultType="com.ffyc.myfirstboot.model.HorseLamp">
+        select id, title, file
+        from horselamp
+    </select>
+    <select id="getNotice" resultType="com.ffyc.myfirstboot.model.News">
+             select id, title
+        from notice
+    </select>
+    <select id="getFeedBackList" resultType="com.ffyc.myfirstboot.model.HorseLamp">
+        SELECT * FROM feedback
+    </select>
+    <select id="updateHorseLampBy" resultType="com.ffyc.myfirstboot.model.HorseLamp">
+        select * from horselamp where id=#{id}
+    </select>
+
 </mapper>

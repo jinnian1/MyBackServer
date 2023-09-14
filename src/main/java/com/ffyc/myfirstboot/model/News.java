@@ -11,6 +11,7 @@ import java.util.Date;
 public class News {
     private Integer id;
     private String title;
+    private String content;
     private String summary;
     private String info;
     private String picture;
@@ -42,6 +43,14 @@ public class News {
 
     public String getOperatorAccount() {
         return operatorAccount;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public void setOperatorAccount(String operatorAccount) {

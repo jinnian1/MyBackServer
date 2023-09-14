@@ -23,11 +23,9 @@ public class RoomController {
     RoomService roomService;
 
     @RequestMapping("addRoom")
-    public CommonResult addRoom(@RequestHeader("token") String token,@RequestBody Room room) {
+    public CommonResult addRoom(@RequestBody Room room) {
         CommonResult commonResult = null;
-        DecodedJWT tokenInfo = TokenUtil.getTokenInfo(token);
-        Integer manageId = tokenInfo.getClaim("id").asInt();
-        room.setOperator(manageId);
+
         roomService.addRoom(room);
         try {
             commonResult = new CommonResult<>(200, "保存成功", null);
@@ -65,11 +63,9 @@ public class RoomController {
     }
 
     @RequestMapping("updateRoom")
-    public CommonResult  updateRoom(@RequestHeader("token") String token,@RequestBody Room room) {
+    public CommonResult  updateRoom(@RequestBody Room room) {
         CommonResult commonResult = null;
-        DecodedJWT tokenInfo = TokenUtil.getTokenInfo(token);
-        Integer manageId = tokenInfo.getClaim("id").asInt();
-        room.setOperator(manageId);
+
         roomService.updateRoom(room);
         try {
             commonResult = new CommonResult<>(200, "修改成功", null);
@@ -84,6 +80,7 @@ public class RoomController {
     public CommonResult<List<Room>> getRoomList(@RequestBody Room room){
         CommonResult commonResult = null;
         try {
+            System.out.println(room);
             PageInfo<Room> roomPageInfo = roomService.getRoomList(room);
             commonResult = new CommonResult<>(200, "查询成功", roomPageInfo.getList(), roomPageInfo.getTotal());
         } catch (Exception e) {
@@ -93,10 +90,10 @@ public class RoomController {
         return commonResult;
     }
 
-    @RequestMapping("getFloorsByBuildingID/{buildingID}")
-    public CommonResult<List<Integer>> getFloorsByHeight(@PathVariable("buildingID")Integer buildingID){
+    @RequestMapping("getFloorsBybuildingId/{buildingId}")
+    public CommonResult<List<Integer>> getFloorsByHeight(@PathVariable("buildingId")Integer buildingId){
         CommonResult commonResult = null;
-        List<Integer> list = roomService.getFloorsByBuildingID(buildingID);
+        List<Integer> list = roomService.getFloorsBybuildingId(buildingId);
         try {
             commonResult = new CommonResult<>(200, "查询成功",list);
         } catch (Exception e) {
@@ -106,14 +103,32 @@ public class RoomController {
         return commonResult;
     }
 
-    @RequestMapping("getregiestRoom/{buildingID}/{height}")
-    public CommonResult  getregiestRoom(@PathVariable("buildingID")Integer buildingID,@PathVariable("height")Integer height){
+    @RequestMapping("getregiestRoom/{buildingId}/{height}")
+    public CommonResult  getregiestRoom(@PathVariable("buildingId")Integer buildingId,@PathVariable("height")Integer height){
         try {
-            List<Room>list= roomService.getregiestRoom(buildingID,height);
+            List<Room>list= roomService.getregiestRoom(buildingId,height);
             return  new CommonResult(200,"查找成功",list);
         } catch (Exception e) {
             e.printStackTrace();
             return  new CommonResult(500,"查找失败",null);
         }
     }
+
+
+
+    @RequestMapping("getFloorsByBuildingId/{buildingId}")
+    public CommonResult<List<Integer>> getFloorsByBuildingId(@PathVariable("buildingId")Integer buildingId) {
+        CommonResult commonResult = null;
+        System.out.println("888-hewenq");
+        List<Integer> list = roomService.getFloorsBybuildingId(buildingId);
+        try {
+            commonResult = new CommonResult<>(200, "查询成功", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            commonResult = new CommonResult<>(500, "查询失败", null);
+        }
+        return commonResult;
+    }
+
+
 }

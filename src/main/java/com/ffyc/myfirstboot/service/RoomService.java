@@ -44,8 +44,8 @@ public class RoomService {
         return new PageInfo<>(list);
     }
 
-    public List<Integer> getFloorsByBuildingID(Integer buildingID) {
-        Integer height = roomDao.getFloorsByBuildingID(buildingID);
+    public List<Integer> getFloorsBybuildingId(Integer buildingId) {
+        Integer height = roomDao.getFloorsBybuildingId(buildingId);
         List<Integer> list = new ArrayList<>();
         for (int i = 1; i <= height; i++) {
             list.add(i);
@@ -53,7 +53,7 @@ public class RoomService {
         return list;
     }
 
-    public List<Room> getregiestRoom(Integer buildingID, Integer height) {
-        return  roomDao.getregiestRoom(buildingID,height);
+    public List<Room> getregiestRoom(Integer buildingId, Integer height) {
+        return  roomDao.getregiestRoom(buildingId,height);
     }
 }

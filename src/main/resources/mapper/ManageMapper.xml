@@ -4,23 +4,11 @@
 
 
     <select id="login" resultType="Manage" parameterType="Manage">
-        select * from  manage where account=#{account} and password=#{password} and state=1
+        select * from  manage where account=#{account} and password=#{password}
     </select>
 
     <select id="menuList" resultType="Menu" parameterType="Manage">
-        <choose>
-            <when test="type==0">
                 SELECT NAME,url FROM menu
-            </when>
-            <otherwise>
-                SELECT
-                DISTINCT m.name,m.url
-                FROM menu m
-                LEFT JOIN role_menu rm ON rm.menu_id=m.id
-                LEFT JOIN manage_role mr ON mr.role_id=rm.role_id
-                WHERE mr.manage_id=#{id}
-            </otherwise>
-        </choose>
     </select>
 
     <resultMap id="ManageMap" type="Manage">
@@ -65,11 +53,14 @@
     <insert id="addRelation">
         INSERT INTO manage_role VALUES(#{manageid},#{roleid})
     </insert>
+    <insert id="register">
+         INSERT INTO manage(account,PASSWORD,phone,sex,address,name) VALUES  (#{account},#{password},#{phone},#{sex},#{address},#{name})
+    </insert>
     <update id="updateManageSave" parameterType="Manage">
         update manage set account=#{account},phone=#{phone},sex=#{sex},address=#{address},birthday=#{birthday} where id=#{id}
     </update>
     <update id="changeCode">
-        update manage set password=#{mm} where id=#{id}
+        update manage set password=#{password} where id=#{id}
     </update>
     <delete id="deleteRelation">
          DELETE FROM manage_role WHERE manage_id=#{id}
@@ -128,8 +119,14 @@
     <select id="searchCode" resultType="String">
         select password from manage where id=#{id}
     </select>
+    <select id="getManageInfo" resultType="com.ffyc.myfirstboot.model.Manage">
+        select * from manage where id=#{id}
+    </select>
 
     <update id="resetPassword">
         update manage set password=#{mm} where id=#{id}
+    </update>
+    <update id="updateManageInfo">
+        UPDATE manage SET account=#{account},phone=#{phone},sex=#{sex},address=#{address},name=#{name} where id=#{id}
     </update>
 </mapper>

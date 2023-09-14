@@ -4,35 +4,37 @@
 <mapper namespace="com.ffyc.myfirstboot.dao.BuildingDao">
 
     <insert id="addBuilding" parameterType="building">
-        insert into building(name, height, type,sex, operator, operate_time)
-        values (#{name}, #{height}, 1,#{sex}, #{operator}, now())
+        insert into building(name, height,sex, operate_time)
+        values (#{name}, #{height},#{sex}, now())
     </insert>
     <update id="updateBuilding" parameterType="building">
         update building
         set name=#{name},
             sex=#{sex},
             height=#{height},
-            operator=#{operator},
             operate_time=now()
         where id = #{id}
     </update>
-    <update id="deleteBuilding">
-        update building set state=0
-        where id = #{buildingId}
-    </update>
+    <delete id="deleteBuilding">
+        delete
+        from building
+        where id = #{buildingId};
+    </delete>
+
     <select id="getBuildingById" resultType="Building">
         select id, name, height, sex
         from building
-        where id = #{buildingId} and building.state=1
+        where id = #{buildingId}
     </select>
     <select id="getBuildingList" parameterType="building" resultType="Building">
-        SELECT id,name,height,sex,find_manage_account(operator) operatorAccount,operate_time
-        FROM building where building.state=1
+        SELECT * FROM building
+        <where>
             <if test="name!=''">
                 name=#{name}
             </if>
             <if test="sex!=''">
                 sex=#{sex}
             </if>
+        </where>
     </select>
 </mapper>

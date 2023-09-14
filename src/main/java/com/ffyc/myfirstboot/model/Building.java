@@ -16,8 +16,7 @@ public class Building {
     private Integer height;
     private String sex;
     private Integer operator;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date operateTime;
+    private String operateTime;
     private Integer pageNum;
     private Integer pageSize;
     private String operatorAccount;
@@ -70,11 +69,11 @@ public class Building {
         this.operator = operator;
     }
 
-    public Date getOperateTime() {
+    public String getOperateTime() {
         return operateTime;
     }
 
-    public void setOperateTime(Date operateTime) {
+    public void setOperateTime(String operateTime) {
         this.operateTime = operateTime;
     }
 
