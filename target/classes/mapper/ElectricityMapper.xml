@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.ElectricityDao">
+    <insert id="billingInfoSave">
+            INSERT INTO billing_info(DATE,bill_amount,student_id,state)
+        VALUES(now(),#{billAmount},#{studentId},0)
+    </insert>
+    <update id="updateBillingInfo">
+            UPDATE billing_info SET state=#{state} where id=#{id}
+    </update>
+    <delete id="deleteBillingInfo">
+        DELETE FROM billing_info WHERE id=#{id}
+    </delete>
+
+    <select id="electricityMessage" resultType="com.ffyc.myfirstboot.model.Electricity">
+          SELECT student.id,building.name AS build,building.height,room.number AS room,billing_info.date,billing_info.bill_amount FROM student
+  LEFT JOIN building ON building.id=student.buildingId
+  LEFT JOIN room ON student.roomID=room.id
+  LEFT JOIN billing_info ON billing_info.student_id=student.id
+  WHERE student.id=#{studentId}
+    </select>
+    <select id="dateList" resultType="java.lang.String">
+        
+    </select>
+    <select id="electricityList" resultType="java.lang.Integer"></select>
+    <select id="getBillingInfoList" resultType="com.ffyc.myfirstboot.model.Electricity">
+            SELECT billing_info.id,billing_info.state,student.name,building.name AS build,building.height,room.number AS room,billing_info.date,billing_info.bill_amount FROM billing_info
+  LEFT JOIN student ON billing_info.student_id=student.id
+  LEFT JOIN room ON student.roomId=room.id
+    LEFT JOIN building ON room.buildingId=building.id
+    </select>
+
+  <select id="findmoney" resultType="java.lang.String">
+                        SELECT billing_info.bill_amount FROM billing_info
+                   LEFT JOIN student ON student.id=billing_info.student_id
+             LEFT JOIN room ON student.roomId=room.id
+              WHERE room.number=#{number}
+  </select>
+
+  <select id="finddate" resultType="java.lang.String">
+     SELECT billing_info.date FROM billing_info
+             LEFT JOIN student ON student.id=billing_info.student_id
+             LEFT JOIN room ON student.roomId=room.id
+              WHERE room.number=#{number}
+  </select>
+    <select id="getBillStatisticsList" resultType="com.ffyc.myfirstboot.model.Room">
+                SELECT room.number,building.name AS buildingName,SUM(bill_amount) AS aggregateAmount  FROM billing_info
+  LEFT JOIN student ON student.id=billing_info.student_id
+  LEFT JOIN room ON student.roomId=room.id
+    LEFT JOIN building ON room.buildingId=building.id
+    GROUP BY room.number,room.buildingId
+    </select>
+    <select id="getTotalBill" resultType="com.ffyc.myfirstboot.model.BillingInfo">
+        SELECT SUM(bill_amount) as billAmount FROM billing_info WHERE TO_DAYS(DATE)=TO_DAYS(NOW())
+    </select>
+
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ffyc.myfirstboot.dao.FixDao">
+    <insert id="submitFix">
+        INSERT INTO breakdownfix(district,NAME,student_name,phone,room,describes,state)VALUES(#{district},#{name},#{studentName},#{phone},#{room},#{describes},0)
+    </insert>
+    <insert id="submitFeedBack">
+INSERT INTO feedback(content,phone,state)VALUES(#{describes},#{phone},0)
+    </insert>
+    <delete id="deleteBreakDownFix">
+               delete
+        from breakdownfix
+        where id = #{id};
+    </delete>
+    <select id="getBreakDownFix" resultType="com.ffyc.myfirstboot.model.Breakdownfix">
+        select * from breakdownfix
+    </select>
+</mapper>
