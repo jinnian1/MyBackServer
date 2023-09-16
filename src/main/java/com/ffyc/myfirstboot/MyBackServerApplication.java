@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan("com.ffyc.myfirstboot.dao")
 @EnableTransactionManagement
 public class MyBackServerApplication {
+
 	public static void main(String[] args) {
 		SpringApplication.run(MyBackServerApplication.class, args);
 	}
